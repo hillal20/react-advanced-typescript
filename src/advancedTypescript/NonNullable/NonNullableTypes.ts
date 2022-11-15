@@ -1,0 +1,1 @@
+export type Songs = string | string[] | undefined | null
