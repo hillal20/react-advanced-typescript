@@ -17,8 +17,8 @@ interpreter + JIT compiler (just in time compiler ) => read the byte code and co
 
 ## 4 \*\* why String is immutable in java
 
-- because the Sting pool to protect the shared reference
-- and for security since string is share in lot of places : file system , networking, db ...
+- because the String pool to protect the shared reference
+- and for security since string is shared in lot of places : file system , networking, db ...
 
 ## 6 \*\* Marker Interface
 
@@ -165,15 +165,147 @@ but class can only implements interface
  - in Concurrent , the other threads can access to the non-touched elements instead of waiting 
 
  ## 24 ** how HashMap works in Java internally 
-   
-        
+ ```
+   Map<Employee, string >  map = new HashMap<>();
+  
+   - the initial capacity of map is 16 , start from 0 to 15 bucket 
+   - every bucket will have one or more nodes and every node has :
+                                                  key , value , hash , next 
+   - every node is considered linkedList 
+   - map is the hashMap object 
+   - let say we have 4 employee objects e1, e2, e3 , e4
+   - map.put(e1, "hill"), map.put(e2, "fill"), map.put(e3, "bill") ...
+   - inside the put method there is a method called hash ,  this hash method  will take the employee object (e1) and passe it as a param to the hash method 
+   - the hash method will create an index = 6 , this mean it will store the data in the bucket 6 : 
+                         e1, "hill", 10101101 , null
+   - let say it will do the same for e2  in the bucket index = 9 :
+                         e2, "fill" , 83383838 , null   
+   - let sat in saving e3 the hash function  generated index = 6 
+     which the same as the index of e1 
+   - in this case the Map go to check e1.equals(e3), if they are not equal the 
+     the Map will store it in the bucket 6 as well but the next of e1 will not 
+     be null anymore, it will pointing to e3 
+   - having more then one node in the same bucket is called hashing collision 
+   - if the key is null , the Map will put the node in the index = 0 bucket 
+             ex: Map.put(null, 'girl')
 
-                      
-                       
+
+ ```
+
+## 25 ** private keyword 
+the field is accessed only from the same package    
+
+##  26 ** passed by value VS passed by reference 
+    - java is passed by value for the primitive types,  and by reference for the objects and arrays  reference
+    - pass by value meaning is giving  the value of a variable to another variable to act as a copy,
+    ex: 
+    let say we pass a value to a function , the param of that function is nothing but another variable holding the same value passed to function in the invocation.
+    But : 
+     the object is different. we are passing the object reference as a value 
+     (memory address)
+
+- pass by reference means giving  the address of variable containing that value 
+
+## 27 ** Equals and hashCode in objects 
+    Employee e1 = new Employee("hil", 44)
+    Employee e2 = new Employee("hil", 44)
+
+        - shallow comparison is   e1 == e2 // this will evaluate to false , because it is comparing the address reference 
+
+        - deep comparison is e1.equals(e2)  // this will evaluate to false as well 
+
+ - to make equals() check for deep comparison we must override it :
+
+```
+public boolean equals(Object object ){
+
+// 1 -  we cast the object passed to Laptop one 
+LapTop laptop = (LapTop) object 
+
+
+// 2 -  checking if it is a valid object and it is coming from the right class 
+if(laptop == null || this.getClass() != laptop.getClass()){
+    return false;
+}
+
+
+// 3 -   checking the address reference 
+if(this == laptop ) return true ;
+
+// 4 - checking if the values are the same 
+if( this.name.equals(laptop.getName()) && this.ram == laptop.getRam()){
+    return true;
+}
+
+return false;
+
+}
+
+```
+
+## 28 ** HashCode in java 
+
+  class Employee {
+       private int id ;
+       private String name;
+       
+        Employee(String name){
+          this.name = name 
+        }
+
+       public int hashCode(){
+           return this.id 
+       }
+  }
+    Employee emp1 = new Employee("bill" )
+     Employee emp2 = new Employee("bill" )
+
+     - If 2 objects are equal based on  equals()   function as the example 27  , then the hashCode must be the same. because the hashCode is generated based on the value of field in the object.            
     
+     - but there is one thing , if the hashCode is the same it is not necessary that the objects are the same. the hashCode means only the  number of the bucket in the hashTable in java . the bucket can have more that one node 
+
+     - the same object always return the same hashCode                          
                                 
-                                
-                                
-                            
+## 29 ** we can not reduce the visibility of a method inherited  from parent 
+
+if a method in the parent class is public , if we override the method  in the child class we can not make it less (protected , default , private )
+
+## 30 ** public  access modifier form everywhere  
+
+## 31 ** protected  access modifier is only from the package , or within a subClass regardless their package   
+
+## 32 ** default access modifier is ony from the package  
+
+## 33 ** private access modifier is only from inside the class 
+
+## 34 ** shadowing of static methods
+if a class is the parent and it has a child class extended from it ,
+and the child  overrode one method of the parent 
+
+if we generate an object from  the child , and even if the type of the obj was the parent class, if we call the overrode method , the child method will be called
+
+but if we supply the overrode method with the static key word in both parent and child , and if we call the overrode method from the obj , then  the parent method will be invoked instead 
+
+## 35 ** Association , aggregation and composition 
+- aggregation : is a weak association (loose coupling)
+       ex : 
+           class Driver {
+                Car car = new Car(); // the car could be null and the driver will stay 
+           }
+        the car will stay a car even if there is no driver, and vise versa 
+
+- Composition : is a strong association (tight coupling )
+     ex: 
+         class Car {
+            Engin engin = new Engine(); // the car can not exist without engine 
+         }
+
+
+## 36 ** Covariant return type 
+the overrode method in the child has to have the same return type  as the parent method , or a child of it
+     ex : parent return type Object 
+          child return type String 
+          String is a child of Object 
+
 
    
