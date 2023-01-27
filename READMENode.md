@@ -49,7 +49,7 @@ var in javascript is a block scoped type
 
 ## 12 \*\* derived state in react
 
-1- let say we have 2 inputs one has an add button next to it to add tasks,
+1- let say we have 2 inputs one has an add button next to it, to add tasks,
 2- and one it made for searching (filtering the tasks).
 
 3- the naive approach is that the user types something in the search input, and the onChangeHandler will take the tasks form the state and filter them and react will the show them on the screen.
@@ -66,7 +66,7 @@ because it is relaying on the data coming from the first state
 
 ## 13 \*\* React Strict mode
 
-it is made only in the development, not in the production. It is made to discover bugs react thinks it is existing during the development env. there are 6 things to cover:
+it is made only in the development, not in the production. It is made to discover the bugs react thinks it is existing during the development env. there are 6 things to cover:
 
 1- unintended side effects: React first render phase is too slow, unlike the update phase where react compare the html changed to the previous one and update only the places changed.
 
@@ -407,7 +407,7 @@ the 5 params are local variables for the module injected by node js inside the m
 
 ## 37 \*\* module caching in node
 
-if in in a module we have a class, we should avoid exporting an instance of that class , we should export the class
+if in a module we have a class, we should avoid exporting an instance of that class , we should export the class
 because if we export the instance of the class, node will cache it and
 if we modify that instance in one place and we want to import an other instance we will find the new imported instance is modified as well
 because node will try to save time and gives the cached one which it is already modified
@@ -420,7 +420,15 @@ there 2 types sync APIs for non-blocking functions and async APIS for blocking f
 
 it is used if there is async calls/code happened, to evaluate the order of the calls/code
 
+## 40  ** I/O 
+- it is used to label the communication between the CPU and anything external of the CPU : memory , disk , network , process ...
+- the process communicate with the external  things via signals :
+   input:  means received by the process 
+   output:  when sent out by process 
+
 ## 40 \*\* event loop
+it is created to deal with waiting for I/O operations to finish 
+even loop is for handling the slow I/O operations without blocking the execution of the rest of the code 
 
 It is the mechanism of handling the callbacks, to support the non-blocking code, via event-listeners. Node assign a listener to every event and call the callback assigned to it.
 
@@ -457,7 +465,11 @@ eventEmitterObj.on("info", (error) => {})
 
 channels of data , readable and writable, we read data form the readable and we write data to the writable ex : req,res
 
-- the readable stream is inherited from the EventEmitter ("emit", "readable", "end")
+- the readable stream (has the data ) is inherited from the EventEmitter ("emit", "readable", "end")
+- readable stream can read the data from a source
+
+- http request and process.stdin are readable Streams
+- Http response and process.stdout are writable streams
 
 ```
 
@@ -634,7 +646,7 @@ every script is sourcing a js file , DO NOT Name the variables the same even the
 
 ## 52 \*\* we can not access the dom from the service worker
 
-## 53 \*\* iterator and enumerator and generator in javascript
+## 53 \*\* iterator, iterable an, enumerable and generator in javascript
 
 1 - generator :
 
@@ -664,12 +676,17 @@ for(let key in arr){
 the same logic will apply for the object
 
 3 - for in loop works for both array and objects, but in the object it will cover the normal fields and the one added by Object.defineProperty with enumerable true
+in other words for in loop look for enumerable = true in every field in the  object
 4 - but in the array it will cover all element with different assigning way but we still have Object.defineProperty with enumerable true
-5 - for of loop covers only the element mentioned inside the brackets, the other assignment will never appear
+
+5 - for of loop covers only the element mentioned inside the brackets (the values ), the other assignment will never appear, because in the array there is iterator built in it.
+
 6 - for of loop will never work with objects unless if we build a custom iterable for them
 7 - the difference between iterable and enumerable is that  iterable is given to us as a  ready feature with an iterator : array, map , set ,string ...
+
 but not objects. while enumerable is the field that tells the iterator to pass thru for not , it takes a boolean value
 
+8- iterator is simply and object attached to the array that tells some other function how to access the values (not the index ) inside of it
 ```
 
 ## 54 \*\* maps and sets
@@ -710,3 +727,320 @@ the cool thing about bind , let we could add more params to pass them later
 
 it stops the call in inside get(url, {signal : controller.signal })
 
+## 57 \*\* callbacks
+
+```
+console.log("==> start");  // 1
+
+const fn = (x, cb) => {
+
+ setTimeout(() => {
+      console.log("==> inside setTimeout") // 3
+     cb(`hello mister ${x}`)
+    }, 2000);
+
+  return "fn return"
+}
+
+const message = fn("Hill", (data) => {
+        console.log("data ==> ", data)  // 4
+  return "callback return" // no one look for this
+});
+
+
+console.log("message ==> ", message ); // 2
+
+
+console.log("==> end") // 3
+```
+
+## 58 \*\* Promises
+
+```
+console.log("==> start");  // 1
+const rp = Promise.resolve("==> resolved promise ")
+  .then(res1 => {
+          console.log("rp res1  ==> ", res1) // 6
+          return "somthig is returned"
+   })
+  .then(res2 => {
+          console.log('rp res2 ==> ', res2) // 8
+   })
+console.log("rp ==> ", rp )  // 2
+const promise = new Promise((resolve, reject) => {
+  console.log("== top of promise "); // 3
+
+  let result = true;
+  if(result) resolve("data is here");
+  else reject(new Error("error is here "));
+  setTimeout(() => {
+    console.log("==> inside timeout of promise ") // 9
+  })
+  console.log("==> end of promise ")  // 4
+
+  return "promise cb return is here" // no one look for this
+})
+
+
+promise
+  .then(res1=> console.log("promise  res1 ==> ", res1)) // 7
+  .then(res2 => console.log("promise  res2 ==> ", res2)) // 9
+  .catch(err => console.log("pr err==> " , err.message ))
+
+console.log("==> end"); //5
+```
+
+## 59 \*\* promise combinator
+
+Promise.all([]):
+return all resolved promises without order or the
+first rejected one
+
+Promise.race([]):
+only return the first resolved or rejected , whoever comes first
+
+Promise.allSettled([]):
+returns all the promises either good or failed ones as form of objects
+
+Promise.any([]) :
+the first resolved or all rejected
+
+## 60 \*\* PolyFill in java script
+
+is a code to the browsers to le them override or create something is not native in them
+
+## 61 \*\* this key world
+
+" a role of thumb in javascript is that all the variables or functions belong to the global object unless we specify , but the global object is hidden from us "
+
+- this key word inside the function is linked to the global scope in node of into the window object in the browser
+
+if the function want a different object then we avoid calling normally but we call it from
+
+fn.call(obj) or
+fn.apply(obj)
+
+ex:
+
+```
+const age = 20
+function bill(){
+  console.log(this.age);
+  console.log(this)
+}
+bill()  // this.age will give 20
+         // this will give the window obj
+
+
+```
+
+or
+
+```
+const person = {
+    age: 30,
+    bill: function(){
+      consol.log(this.age)
+      console.log(this)
+    }
+}
+```
+
+person.bill() // this.age will give 30 , and this will give the person obj
+
+## 62 \*\* this key word in arrow functions
+
+===> this key word in normal functions is referring to the object where the function is called
+
+===> arrow functions do not own this keyword even if they are attached to an object
+
+```
+global.age = 33;  // node global means window
+const  normalFnction = function(){
+    console.log("normalFunction this ===> ", this )
+     console.log("normalFunction age ===> ", this.age  )
+}
+const arrowFnction = () => {
+  // arrow functions do not have this keyword inside thier scop
+     console.log("arrowfn this ===> ", this )
+     console.log("arrowfn age ===> ", this.age  )
+}
+
+const person = {
+  age : 39 ,
+  print: function(){
+    console.log("this 1 ==> ", this)
+    console.log("age 1 ==> ", this.age);
+  },
+  display: () => {
+    console.log("this 2 ==> ", this)
+    console.log("age 2 ==> ", this.age);
+  },
+  show: function(){
+         /*
+          this key word refer to the object where the
+          function is called
+          */
+        console.log("this 3 ==> ", this)
+        console.log("age 3 ==> ", this.age);
+         // noraml function
+        const fn = function(){
+                console.log("this 4 ==> ", this)
+                console.log("age 4 ==> ", this.age);
+               };
+         // since it is not attached to obj, this is global
+           fn();
+
+         // arrow function
+         const arrFn = () => {
+              /*
+              this key word here is the one comming from
+              outside the arrFn scope and not comming form
+               the object from which is called,
+               since this arrfn is calles inside show()
+               so this keyword is comming from that scope
+               */
+                console.log("this 5 ==> ", this)
+                console.log("age 5 ==> ", this.age);
+               };
+              // no object is attached to it
+              arrFn()
+
+      }
+};
+//this in this refers to global or window
+normalFnction()
+//this here is null, arrow funciton dont own this keyword
+arrowFnction();
+
+//this key word refere to perosn object
+person.print();
+
+//this here is null, arrow function dont own this keyword
+person.display();
+
+
+person.show();
+```
+
+## 63 \*\* prototypes in javascript
+
+let say we have an object called cat = new Cat()
+
+- cat is an object and can have its own methods
+- cat inherited prototype methods from the class Cat
+- and also inherited prototypes form the class Object
+
+const obj = {}; // means new Object();
+
+obj.constructor // gives the native class Object
+obj.constructor.prototype // gives empty object {}
+obj.**proto** // gives empty object {}
+
+```
+const Cat = function(){
+  }
+
+const katty = new Cat();
+// all the following is doing the same
+console.log(Cat.prototype);
+console.log(katty.__proto__)
+console.log(katty.constructor.prototype)
+
+
+```
+
+## 64 \*\* fetch api in javascript
+
+fetch(url,
+{method: 'POST',
+headers: {
+'Content-Type': 'application/json'
+}
+body:JSON.stringify({
+name: 'user1
+})
+})
+.then(res => res.json())
+.then(data => console.log(data))
+
+## 65 \*\* closures
+
+const fn = (param1)=> {
+return (param2)=> {
+console.log(param1) // hilal
+console.log(param2) // aissani
+}
+}
+
+const fn2 = fn('hilal);
+fn2("aissani");
+
+## 66 \*\* IIFI
+
+## 67 \*\* let const var
+
+var is global and local variable
+let is global and local and block
+const can not be reassigned
+
+## 68 \*\* Horizontal VS vertical scaling in node
+
+- Horizontal | vertical
+  - load balancing | N/A
+  - resilient in failing | single point to fail
+  - net work calling between | inter processes call (super fast)
+    nodes
+  - data latency(inconsistency) | data consistency
+  - skills well (nodes ) | hardware limitation (fork child process based on number of cpu's in the server )
+
+## 69 \*\* concurrency vs parallelism in node
+
+since node is single thread it is made for concurrency via event loop, take one request after the other
+
+- concurrency is taking 2 tasks or more and trying to do the job and keep jumping between doing them until you finish all of them,
+  in other words , in every second either working on one task or on the other but never on both (even loop )
+
+- parallelism is taking 2 tasks or more and you do the job on them at the same time and not jumping between them,
+  in other words , in every second working on both tasks (forking the child process based on number of the cpu's), but the end node with run these child processes concurrently
+
+## 70 \*\* Http request in node / express
+
+```
+ƒ
+```
+
+## 71 \*\* famous events in node
+
+- message , listen , data, error, warn, info, imit , readable , end , request, .....
+
+- functions to listen : .on("eventName" , cb )
+- functions to write : .write()
+
+## 72 \*\* request example
+
+const res = await axios.post('https://httpbin.org/post', { hello: 'world' }, {
+headers: {
+// 'application/json' is the modern content-type for JSON, but some
+// older servers may use 'text/json'.
+// See: http://bit.ly/text-json
+'content-type': 'text/json'
+}
+});
+
+## 74 ** updating the services without stopping them "rolling deployment."
+The best way to update all the services without stopping them would be to use a process called "rolling deployment." This involves updating one service at a time, rather than stopping all services at once to update them. This can be done using a load balancer or a reverse proxy, which can redirect traffic to the updated service while the other services are still running. This way, there is minimal disruption to the overall service and users will not experience any down-time.
+
+
+## 75 **  MVC in react 
+ Model-View-Controller
+  - Model:  the data and the business logic;
+  - View: the user interface and how the data is displayed;
+  - Controller: the communication between the Model and the View. 
+
+React follows a component-based architecture: 
+- each component serves as both the View and the Controller
+- and the data is passed down through props or state or from redux .
+
+## 76 ** node server handles millions of call at the same time 
+A Node.js server can handle millions of calls at the same time in a similar way to an Express server by utilizing a technique called "event-driven, non-blocking I/O". This allows the server to handle multiple requests simultaneously, as it can handle multiple events (such as incoming requests) at the same time without waiting for any one event to be fully processed before moving on to the next. Additionally, a load balancer can be used in front of the Node.js server to distribute incoming traffic across multiple servers, allowing the system to handle even more requests. Caching and optimizing database queries can also help to improve the performance of the Node.js server in handling high levels of traffic.
