@@ -32,7 +32,7 @@ it is like an object which has key value pairs
 ```
 ex :
 const obj : Record<string, number>{
-   apples: 10,
+   apples: 10,              
    oranges : 20
 }
 ```

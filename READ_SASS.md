@@ -1,4 +1,4 @@
-# \*\* gulp is a build task manager, Sass in styling
+ # \*\* gulp is a build task manager, Sass in styling
 
 importing files is very important in sass because if we need to use a variable located in a file so we need to import the file in the top before we use it in the below file , all this happen inside the index.scss and not in the underscore files
 

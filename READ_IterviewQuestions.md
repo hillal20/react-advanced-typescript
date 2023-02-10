@@ -116,3 +116,22 @@
  * plan to make up for the delay
  * plan to prevent it from happening
  * reinforced  clear communication and teamwork to achieve success
+
+
+
+## 17- My Strength 
+ * Diligent and detail-oriented
+ * Goal-focused 
+ * Eager to learn and fast learner 
+ * Team Player and supportive Person
+ * Problem solver 
+ * Creative 
+ * Surviver 
+
+
+
+
+
+
+
+

@@ -1,4 +1,4 @@
-
+    
 import PartialComponent from "./advancedTypescript/PartialType/PartialComponent";
 import RequiredComponent from "./advancedTypescript/RquiredType/RequiredComponent";
 import RecordComponent from "./advancedTypescript/Record/RecordComponent";

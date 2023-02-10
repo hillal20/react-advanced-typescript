@@ -1,7 +1,6 @@
 # React Interview questions && Javascript
 
 ## 1 \*\* Unidirectional Data flow:
-
 the dom in react doest not update the state, this means if you have an input and you bind the value of it to a state, if the changeHandler is empty and not updating the state , nothing will be typed on the screen BECAUSE the DOM does not update the state. In other words the state is controlling what we see in the screen and not the vice versa, the screen (dom) is not able to update the state
 
 ## 2 \*\* Difference between props and state
@@ -1044,3 +1043,21 @@ React follows a component-based architecture:
 
 ## 76 ** node server handles millions of call at the same time 
 A Node.js server can handle millions of calls at the same time in a similar way to an Express server by utilizing a technique called "event-driven, non-blocking I/O". This allows the server to handle multiple requests simultaneously, as it can handle multiple events (such as incoming requests) at the same time without waiting for any one event to be fully processed before moving on to the next. Additionally, a load balancer can be used in front of the Node.js server to distribute incoming traffic across multiple servers, allowing the system to handle even more requests. Caching and optimizing database queries can also help to improve the performance of the Node.js server in handling high levels of traffic.
+
+
+## 77 ** Nullish coalescing ??  (it returns the right side if there is a null or undefined in the left side )
+
+const nullValue = null;
+const emptyText = ""; // falsy but never null or undifined 
+const someNumber = 42;
+let  undefinedValue; 
+
+ const valA = nullValue ?? "default for A";
+ const valB = emptyText ?? "default for B";
+ const valC = someNumber ?? "default for c";
+ const valD = undefinedValue ?? "default for D"
+
+console.log(valA); // "default for A"
+console.log(valB); // "" (as the empty string is not null or undefined)
+console.log(valC); // 42
+console.log(valD); // "default for D"
