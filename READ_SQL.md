@@ -84,3 +84,12 @@ select  CONCAT('v', visitor_id) as Id,  lastName , firstName , age , city from v
 order by Id 
 
 ``` 
+
+## 5  ** aggregation functions which works with `group by `
+
+COUNT(): Returns the number of rows in a group.
+SUM(): Returns the sum of a numeric column in a group.
+AVG(): Returns the average of a numeric column in a group.
+MIN(): Returns the minimum value of a column in a group.
+MAX(): Returns the maximum value of a column in a group.
+GROUP_CONCAT()

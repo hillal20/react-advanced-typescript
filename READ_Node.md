@@ -792,17 +792,16 @@ console.log("==> end"); //5
 ## 59 \*\* promise combinator
 
 Promise.all([]):
-return all resolved promises without order or the
-first rejected one
+               * return all resolved promises without order or the  first rejected one
 
 Promise.race([]):
-only return the first resolved or rejected , whoever comes first
+               *  only  the first resolved or rejected , whoever comes first
 
 Promise.allSettled([]):
-returns all the promises either good or failed ones as form of objects
+               * returns all the promises either good or failed ones as  objects
 
 Promise.any([]) :
-the first resolved or all rejected
+               * the first resolved or all rejected
 
 ## 60 \*\* PolyFill in java script
 
@@ -1061,3 +1060,88 @@ console.log(valA); // "default for A"
 console.log(valB); // "" (as the empty string is not null or undefined)
 console.log(valC); // 42
 console.log(valD); // "default for D"
+
+## 78 ** debounce  vs throttle 
+
+==> debounce: 
+             *  wait for the "input--value" to finish changing,  then updating the "debounced-value" (the one we use to call an api )
+ ```
+import { useState, useEffect } from "react";
+import "./styles.css";
+
+export default function App() {
+  const [state, setState] = useState("");
+  const [debouncedState, setDebouncedState] = useState(state);
+
+
+  useEffect(() => {
+    const timeout = setTimeout(() => {
+      setDebouncedState(state);
+    }, 1000);
+    return () => clearTimeout(timeout);
+  }, [state, debouncedState]);
+
+  const inputHandler = (e) => {
+    setState(e);
+  };
+  console.log('debounces ===> ', debouncedState)
+  return (
+    <div className="App">
+      <h1>Hello CodeSandbox</h1>
+      <input
+        //value={debouncedState}
+        onChange={(e) => inputHandler(e.target.value)}
+      />
+      <div>value: {state}</div>
+      <div>debouneced : {debouncedState}</div>
+    </div>
+  );
+}
+
+
+ ```
+
+
+
+===> throttle :
+            *  wait util the specified time is passed before updating the debounced-value 
+
+```
+import { useState, useEffect , useRef  } from "react";
+import "./styles.css";
+
+export default function App() {
+  const [state, setState] = useState("");
+  const [stateTime , setStateIime ] = useState(0);
+  const [debouncedState, setDebouncedState] = useState(state);
+  const ref = useRef(Date.now());
+  const limit = 1000;
+  useEffect(() => {
+       const difference =  stateTime - ref.current ;
+      if( difference >=   limit){
+        
+         setDebouncedState(state);
+        ref.current = Date.now();
+      }
+
+      return () => {}
+  }, [state, debouncedState, stateTime]);
+
+  const inputHandler = (e) => {
+    setState(e);
+    setStateIime(Date.now());
+  };
+  return (
+    <div className="App">
+      <h1>Hello CodeSandbox</h1>
+      <input
+        //value={debouncedState}
+        onChange={(e) => inputHandler(e.target.value)}
+      />
+      <div>value: {state}</div>
+      <div>debouneced : {debouncedState}</div>
+    </div>
+  );
+}
+
+```
