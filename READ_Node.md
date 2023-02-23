@@ -553,7 +553,7 @@ req.pipe(newFile)
 ## 46 \*\* Socket.io and redis in node
 
 sending the data from the client to server in both ways in real time.
-npm i --save socket.io
+npm i -- save socket.io
 
 ```
 const express = require('express')
@@ -1145,3 +1145,26 @@ export default function App() {
 }
 
 ```
+
+
+
+## 79 ** redux setups 
+
+```
+import {Provider} from 'react-redux';
+import thunk from 'redux-thunk';
+import logger from 'redux-logger';
+import { createStore, applyMiddleware } from 'redux';
+import  reducers from './allReducers';
+
+
+const store = createStore(reducers, applyMiddleware(thunk, logger))
+
+
+ReactDOM.render(
+<Provider store={store}>  
+    <App />  
+   
+ </Provider> ,
+
+ ````
