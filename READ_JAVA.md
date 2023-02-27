@@ -5,24 +5,30 @@ boolean , char , int ,float , double , long , short , byte
 
 ## 2 \*\* pointer are not allowed in java :
 
-because unsafe , increase the complexity , the JVM is responsible for the memory
+  - because unsafe ,
+  - increase the complexity ,
+  -  the JVM is responsible for the memory
 
 ## 3 \*\* JIT in java :
 
 in jdk :
-javac compiler compile source code ===> to byte codes
+         * javac compiler compile source code ===> to byte codes
 
 in JRE :
-interpreter + JIT compiler (just in time compiler ) => read the byte code and convert it to machine language
+interpreter + JIT compiler (just in time compiler ): 
+                                     *  read the byte code 
+                                     *  convert it to machine language
 
 ## 4 \*\* why String is immutable in java
 
-- because the String pool to protect the shared reference
-- and for security since string is shared in lot of places : file system , networking, db ...
+-  To protect the shared reference
+-  For security since string is shared in lot of places : file system , networking, db ...
 
 ## 6 \*\* Marker Interface
 
-is an empty interface to tell the compiler this either cloning or serializing
+_ Empty interface :
+                  * to tell the compiler this either cloning or serializing
+             
 
 ## 7 \*\* we can not override static or private methods in java because
 
@@ -31,11 +37,18 @@ is an empty interface to tell the compiler this either cloning or serializing
 
 ## 8 \*\* finally key word
 
-    not always work in case the System.exit() or  system crash
+    not always work in case : 
+                             * the System.exit() 
+                             * system crash
 
 ## 9 \*\* the object has methods :
 
-clone(), equals() , finalize() use by the garbage collector , getClass() , hashCode(), toString() ...
+  - clone(),
+  - equals() ,
+  _ finalize() use by the garbage collector ,
+  _ getClass() , 
+  _ hashCode(), 
+  _ toString() ...
 
 ## 10 \*\* to make the class immutable :
 
@@ -53,10 +66,12 @@ and we make a static method to generate an object of the class itself
 
 ## 12 \*\* pojo in java is a normal class
 
-## 13 \*\* Bean in java the class has to implements Serializable class
+## 13 \*\* Bean in java the class has to
 
-and all the fields are private , and no argument constructor
-and always setters and getters public
+_  implements Serializable class
+_  all the fields are private , 
+-  no argument constructor
+-  setters and getters public
 
 ## ** 14 ** tight coupling
 
@@ -140,7 +155,7 @@ but class can only implements interface
  because : 
           1- map has key/value pairs structure while collection store objects with specified access mechanism 
           2- Collection.add(value) method never store key/value like 
-          Map.put(key,value)
+             Map.put(key,value)
 
 ## 21 ** Fail-fast and fain-safe Iterators 
 - fail-fast Iterator : 
@@ -193,7 +208,8 @@ but class can only implements interface
  ```
 
 ## 25 ** private keyword 
-the field is accessed only from the same package    
+
+     the field is accessed only from the same package    
 
 ##  26 ** passed by value VS passed by reference 
     - java is passed by value for the primitive types,  and by reference for the objects and arrays  reference
@@ -307,6 +323,22 @@ the overrode method in the child has to have the same return type  as the parent
           child return type String 
           String is a child of Object 
 
+
+## 37 ** Access modifiers hierarTchy 
+- public: 
+       * anywhere
+
+protected: 
+         * the same class,
+         * any subclass,
+         * the same package.
+
+default (package-private):
+                       * A member with no access modifier 
+                       * the same package.
+
+private:
+        * the same class 
 
 
    
