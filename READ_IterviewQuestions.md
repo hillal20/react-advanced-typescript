@@ -101,7 +101,7 @@
  * recognize their achievements
  * clear vision for the future
  
- ## 15- when you had to make a difficult decision ? impact your team ? , handled the situation?
+ ## 15- when you had to make a difficult decision ? impact your team ? handled the situation?
 
  * more than one team members   left the projects
  * we had to split their tasks on the rest of the team 
@@ -128,7 +128,15 @@
  * Creative 
  * Surviver 
 
-
+## 18- Software developer must have skills 
+ 2- communication 
+ 1- technical 
+ 3- planning , scheduling 
+ 4- business awareness 
+ 5- presentation 
+ 6- problem solving 
+ 7- analytical skills 
+ 8- attention to details 
 
 
 

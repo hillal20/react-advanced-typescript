@@ -93,3 +93,19 @@ AVG(): Returns the average of a numeric column in a group.
 MIN(): Returns the minimum value of a column in a group.
 MAX(): Returns the maximum value of a column in a group.
 GROUP_CONCAT()
+
+
+## 5 ** deleting repeated records 
+
+DELETE FROM mytable 
+WHERE id NOT IN (
+  SELECT MIN(id) 
+  FROM mytable 
+  GROUP BY column_to_check_for_duplicates
+);
+
+## 6 ** updating the records 
+
+UPDATE products 
+SET price = price * 1.1 
+WHERE category = 'books';
