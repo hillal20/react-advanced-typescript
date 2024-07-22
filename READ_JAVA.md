@@ -7,7 +7,7 @@ boolean , char , int ,float , double , long , short , byte
 
   - because unsafe ,
   - increase the complexity ,
-  -  the JVM is responsible for the memory
+  - the JVM is responsible for the memory
 
 ## 3 \*\* JIT in java :
 
@@ -92,19 +92,20 @@ public int compareTo(LapTop laptop){
     // this will represent the first object
         return this.price > laptop.price ? -1 : 1;
     }
+
 Collections.sort(list<LapTop>)
 
 ```
 
 ## 17 ** Sorting in java using Comparator interface (compare )
- we use the Comparator interface 
+ we use the Comparator interface  , 
  ```
  Comparator<LapTop> priceComparator  = new Comparator<LapTop>(){
            public int compare(LapTop lap1 , LapTop lap2){
                return lap2.getPrice() > lap1.getPrice() ? -1: 1;
            } 
         };
-       Collections.sort(laptops, priceComparator);
+       Collections.sort( list<LapTop> , priceComparator);
 ```
 ## 18 ** Implements and extends in java 
 
@@ -161,9 +162,14 @@ but class can only implements interface
 - fail-fast Iterator : 
                        - throw ConcurrentModificationException while  iterating a collection if a modification happens 
                        - throw immediate Exception in case of failure 
+
+
 - fail-safe Iterator : 
                        - does not throw an error in case the collection is   modified during iteration 
                        - it is operating on a clone collection instead of the original 
+
+
+
 ## 22 ** BlockingQueue interface  in Java 
  java.util.concurrent.BlockingQueue   is a  queue,
 
@@ -183,13 +189,16 @@ but class can only implements interface
  ```
    Map<Employee, string >  map = new HashMap<>();
   
-   - the initial capacity of map is 16 , start from 0 to 15 bucket 
+   - the initial capacity of map is 16 buckets , start from 0 to 15 bucket 
    - every bucket will have one or more nodes and every node has :
                                                   key , value , hash , next 
    - every node is considered linkedList 
    - map is the hashMap object 
+
    - let say we have 4 employee objects e1, e2, e3 , e4
+
    - map.put(e1, "hill"), map.put(e2, "fill"), map.put(e3, "bill") ...
+   
    - inside the put method there is a method called hash ,  this hash method  will take the employee object (e1) and passe it as a param to the hash method 
    - the hash method will create an index = 6 , this mean it will store the data in the bucket 6 : 
                          e1, "hill", 10101101 , null
@@ -303,6 +312,7 @@ if we generate an object from  the child , and even if the type of the obj was t
 but if we supply the overrode method with the static key word in both parent and child , and if we call the overrode method from the obj , then  the parent method will be invoked instead 
 
 ## 35 ** Association , aggregation and composition 
+
 - aggregation : is a weak association (loose coupling)
        ex : 
            class Driver {
@@ -341,4 +351,525 @@ private:
         * the same class 
 
 
-   
+## 38  Thread safe 
+   - multiple threads could work on the same code/Object  at the same time (simultaneously)
+   - data is the same 
+   - operations are performed correctly  in a concurrent environment.
+
+## 39 HashMap in multi-threaded env
+  - if the microservice (let say rest api ) has only GET request , no data modification
+  - hashMap doest like concurrent modification 
+                ex: one thread is reading and another thread is modifying 
+  - we could use ConcurrentHashMap 
+
+## 40  HashMap VS HashTable vs ConcurrentHasMap
+   - HashMap:
+            - Not synchronized / not thread-safe / not be used in concurrent applications (rest api) / single threaded envs / Allows one null key and multiple null values.
+            - fail-fast and  throw ConcurrentModificationException 
+
+
+   - HashTable: 
+              - Synchronized / thread-safe  / used in multithreaded envs / not allow null keys or values.
+              - fail-fast and  throw ConcurrentModificationException 
+
+
+
+
+   - ConcurrentHashMap :
+              - thread-safe / better performance than HashTable / multithreaded environments / not allow null keys or values.
+              - fail-safe not  throw ConcurrentModificationException 
+
+  ## 41 fail-fast vs fail-safe 
+
+     - the behavior of iterators when a collection is modified concurrently
+     - fail-fast : throw ConcurrentModificationException rapid 
+    
+
+  ##  creating String Literal vs creating string using new() 
+
+        String str1 = "hello"; // Creates a string literal
+        String str2 = "hello"; // Uses the existing string literal from the pool
+         
+         - Performance: Efficient / Immutable 
+
+
+        String str3 = new String("hello"); // Creates a new String object in the heap
+        String str4 = new String("hello"); // Creates another new String object in the heap
+
+        - Performance: Less efficient / Immutable
+
+
+    ##   Java memory management : handled by the Java Virtual Machine (JVM),
+         - Heap Memory:  
+                     - storing objects/arrays in runtime
+                     - Managed by the garbage collector.
+                     - All objects created using the new keyword 
+
+         - Stack Memory:
+                     - storing local-variables/method-call information.
+
+         - Method Area (Non-Heap Memory):
+                    - Stores class structures (metadata)/method information / static variables / constant pool.
+                    - Shared among all threads 
+                    - Classes and methods loaded by the JVM are stored in the method area.
+
+         - Program Counter (PC) Register:
+                    - thread has its own program counter
+                    - Stores the address of INSTRUCTIONS executed by a thread.
+  
+         - Native Method Stack:
+                    - methods written in a language other than Java,
+                    - Stores information for native method calls.
+                    ex : System.loadLibrary("NativeLibrary"); // NativeLibrary.dll (on Windows) or libNativeLibrary.so (on Unix/Linux)
+
+
+   ## String pool (part of the Heap memory) :
+             - store unique instances of string literals.
+             - Strings in the string pool are immutable
+
+
+
+
+   ## Java 8 
+
+      - lambda expression
+      - stream api
+      - default methods in interfaces 
+      - static methods
+      - Functional Interface 
+      - Optional
+      - Method References 
+      - Date Api
+      - Nashorn, JavaScript engine
+
+
+## Optional 
+     - to prevent null-pointer-exception "NullPointerException"
+       ```
+        String str = null;
+        Optional<String> optionalStr = Optional.ofNullable(str);
+        
+        System.out.println(optionalStr.orElse("Default Value"));
+        ```
+
+## Spring boot mini dependency 
+      -it is : "spring-boot-start-web"
+
+## Spring boot actuator 
+  - monitor and manage  the app in  multiple envs 
+  - provide end-points to display info :
+                                      -  health 
+                                      -  metrics 
+                                      -  ENV  variables 
+
+## Spring profiles @Profile  in ( dev , impl, prod , test,  uat ...)
+      - map components and beans in every evn 
+         ex:
+               * in application.properties : 
+                                              spring.profiles.active=dev 
+               * or in JVM system parameter:
+                                              -Dspring.profile.active=dev
+
+               * or in spring boot entry Application: 
+                                              SpringApplication.setAdditionalProfiles("dev")
+                          
+            ```
+            @Configuration
+            @Profile("dev")
+            public class DevConfig {
+
+                @Bean
+                public MyService myService() {
+                    return new MyService("Development Service");
+                }
+            }
+            ```
+            ```
+              @Configuration
+              @Profile("test")
+              public class TestConfig {
+
+                  @Bean
+                  public MyService myService() {
+                      return new MyService("Test Service");
+                  }
+              }
+            ```
+
+            ```
+              public class MyService {
+                private String message;
+
+                public MyService(String message) {
+                        this.message = message;
+                    }
+
+                    public String getMessage() {
+                        return message;
+                    }
+              }
+            ```
+            then u can add this to any class : 
+                                   ```
+                                   @Autowired
+                                   private MyService myService;
+                                   ```
+
+### AOP (Aspect Oriental Programming)
+           - programming paradigm 
+                                   to segregate cross-cutting concerns : 
+                                               logging, security , profiling , transaction management ... 
+                                               ( re-used classes that could be used in different layers in the app )
+                                   to use them in :  
+                                                    business logic layer,
+                                                    ui layer,
+                                                    data access layer 
+
+
+           - Terms in AOP
+           
+                        Aspect:  helper that adds  "Hello!" and "Goodbye!" 
+
+                        JoinPoint: when  you can add"Hello!" and "Goodbye!" It could be before, after, or even during 
+
+                        Advice: "Hello!" or  "Goodbye!"
+
+                        Pointcut: in case only one method need to be modified  , shows that method 
+
+                        Weaving:   The process of applying the aspect to the target method, done by Spring AOP at runtime using a proxy.
+
+
+          - add   spring-boot-starter-aop   as a dependency
+           ```
+                @Aspect
+                public class GreetingAspect {
+                    
+                    @Before("execution(* Robot.*(..))")
+                    public void sayHello() {
+                        System.out.println("Hello!");
+                    }
+
+                    @After("execution(* Robot.*(..))")
+                    public void sayGoodbye() {
+                        System.out.println("Goodbye!");
+                    }
+                }
+           
+                public class Robot {
+                    public void walk() {
+                        // Walk code
+                    }
+
+                    public void talk() {
+                        // Talk code
+                    }
+
+                    public void dance() {
+                        // Dance code
+                    }
+                }
+              
+
+              - if u need to target only one method let say talk (Pointcut) :
+
+              
+              @Aspect
+              @Component
+              public class GreetingAspect {
+
+               
+                  @Pointcut("execution(* Robot.talk(..))")
+                  public void talkMethod() {}
+
+                  @Before("talkMethod()")
+                  public void sayHello() {
+                      System.out.println("Hello!");
+                  }
+
+                  @After("talkMethod()")
+                  public void sayGoodbye() {
+                      System.out.println("Goodbye!");
+                  }
+              }
+             ```
+### @Value 
+       used in class to access any field in application.properties 
+
+### Robust and Fault tolerant 
+    external libraries provides extra features
+                        - circuit breakers 
+                        - rate limiters 
+                        - retries 
+                        - bulkheads 
+  
+  - Resilience4j
+  - Hystrix
+
+
+  ### JDK VS JRE 
+   ```
+      JDK : 
+            - JRE:
+                  * JVM
+                  * Core Libraries
+                  * Other Components
+          
+            - Development Tools:
+                  * (compiler, debugger, etc.)
+    ```
+
+
+### CLASSPATH in java 
+
+   ex: 
+          - let say i have java app (Projects/my-app) and i have these classes,
+             each class is randomly located :
+
+                                     Lib/hilal/user.java
+                                     store/aissani/books.java
+                                     playground/settara/milia.java
+
+          - first make sure java home  is added to the PATH :
+                                                              export PATH=$PATH:/usr/lib/jvm/java-11-openjdk/bin
+
+          - compile the Java classes. From the root directory of your project :
+              ex: 
+                 javac -d . Lib/hilal/user.java store/aissani/books.java playground/settara/milia.java
+          
+          - This will compile the Java files and place the compiled .class files in the corresponding directories.
+
+          - fix the application  CLASSPATH:
+
+                      this could be done via 2 ways : 
+                                               1- by adding all the new .class to the existing app CLASSPATH
+                                               ```
+                                                 export CLASSPATH=$CLASSPATH:/Usr/my-app/Lib/hilal:/Usr/my-app/store/aissani:/Usr/my-app/playground/settara
+                                               ```
+
+                                     or 
+                                               2- you can set the CLASSPATH directly when RUNNING  your Java application:
+
+                                               ```
+                                               java -cp /Usr/my-app/Lib/hilal:/Usr/my-app/store/aissani:/Usr/my-app/playground/settara YourMainClass 
+                                               ```
+
+                                                   mainClass : public static void main(String[] args)
+                                                   -cp or -classpath : means the classpath 
+
+  ### The default CLASSPATH
+        - This means that if you do not explicitly set the CLASSPATH,
+        - Java will look for classes in the directory from which you are running the Java command (java)
+        - the default CLASSPATH is represented with "." 
+        - "." represent in fact the location where you are running the java command 
+                 ex: 
+                     java -cp .:/path/to/other/class:/path/to/other/another-class mainClass
+
+
+  ### Overriding classpath and compiling external java classes in gradle :
+          ```
+            sourceSets {
+            main {
+                java {
+                    srcDirs = ['src/main/java', '/path/to/other/source', '/another/path/to/source']
+                }
+              }
+            }
+
+            task run(type: JavaExec) {
+            main = 'com.example.MainApp'
+            classpath = files(sourceSets.main.runtimeClasspath, '/path/to/other/classes', '/another/path/to/classes')
+           }
+          ```
+
+### derived method in java 
+       - method in a subclass that overrides the one in  superclass.
+
+### shadowing variable:
+       ```
+         int x = 10; // Outer variable
+
+        void method() {
+            int x = 20; // Inner variable, shadows the outer 'x'
+            System.out.println("Inner x: " + x); // Prints the value of inner 'x'
+        }
+       ```
+
+
+## Generics in java  
+   * classes : 
+         ex: class Dog<T> {
+
+         }
+     - generics doest work with primitive types : int, float , double 
+     - let say we have Animals class, <T> could be <T extends Animals>, so this genetic type could be valid for all classes (subclasses) that extends Animals 
+     - this generic type :  <T extends Animals >  is called "bounded genetic"
+     - If Animals is an interface ,  extends also is excepted : <T extends Animals>
+     - T could extends 2 at the same time, one  Class  and one interface only , the class has to come first then the interface  :  <T extends Animals & Serializable>
+
+   * methods: 
+        ex:   
+           private <T,C> void my_method(T param1, C param2 ){
+            // code 
+           }
+
+        or if there is a return :
+
+         private <T,C> D my_method(T param1, C param2 ){
+            
+            return  "the return has to be of type D 
+           }
+    
+
+    * wild cards:
+                  * in case of methods you could do the following :
+
+                        private  List<?> sortMyList(List<?> myList){
+                          // sorting logic 
+
+                          return mySortedList; 
+                        }
+
+                        !IMPORTANT: 
+                                    we could not pass  List<Integer>  to the method that expecting List<Object> as param
+                                    because List<Integer> is not a subclass of List<Object> , even though Integer is a subclass of Object 
+                                     
+
+
+                  * in case of the normal variables you could go with Object type but never use the primitives types 
+                      List<Object> myList = new ArrayList<>();
+                      Object is the superClass of all java classes : String , Boolean, Integer 
+
+## sealed class  ===> java 17:
+   - no to give the permission to to anyone to use it 
+
+    ex :
+        ```
+         sealed interface Shape permits Circle , Rectangle {
+            double area()
+         }
+         
+
+         final class Circle implements Shape  {
+
+         }
+        ```
+
+## pattern matching  ===> java 17:
+
+    ``
+     Object value = "Hello world" 
+        if(value instanceof String str){
+          System.out.print("str  ===>"+ str )
+        }
+    ``
+
+
+
+### switch case   ==>  java 17 
+
+         ````
+           Object  str = "hello"
+           switch(str){
+            case String s -> System.out.print("string");
+            case Integer i -> System.out.print("integer");
+            default -> {
+              System.out.print("default")
+            }
+           }
+         ````
+
+### switch expression  ==>  java 17 
+
+         ````
+           int number = 10
+           switch(number){
+            case 10,11 ->  yield 100;
+            case 20 -> yield 1000;
+            default -> yield 1 ;
+           }
+         ````
+###  Interpreter (JVM interpreter) VS JIT (just-inTime-interpreter )
+     Initial Run:  
+            - JVM Interpreter  INTERPRET  all (.class) bytecode to machine node (native code) on-the-fly and EXECUTE it.
+            - JVM Interpreter detect hot-spots (the most useful bytecode) 
+            - JIT Compiler  INTERPRET hot-spots detected to machine-code (Optimized-Native-Code)
+            - One JVM Interpreter reach a place contain hot-spots it EXECUTE  directly Optimized-Native-Code without interpreting it 
+
+
+### .clone() in java 
+
+      ```
+      class Person implements Cloneable {
+                      private String name;
+                      private int age;
+
+              public Person(String name, int age) {
+                        this.name = name;
+                        this.age = age;
+              }
+
+              @Override
+              public Person clone() {
+                  try {
+                      return (Person) super.clone();  // Shallow copy by default
+                  } catch (CloneNotSupportedException e) {
+                      throw new RuntimeException("Cloning not supported", e);
+                  }
+              }
+
+              @Override
+              public String toString() {
+                          return "Person{name='" + name + "', age=" + age + "}";
+              }
+          }
+
+
+
+          public class Main {
+              public static void main(String[] args) {
+                              Person original = new Person("John Doe", 30);
+                              Person clone = original.clone();
+                              System.out.println("Original: " + original);
+                              System.out.println("Clone: " + clone);
+              }
+          }
+        
+   ```
+
+### .copy() 
+
+         ```
+           class Address {
+                private String city;
+
+                public Address(String city) {
+                    this.city = city;
+                }
+
+                // Custom copy method
+                public Address copy() {
+                    return new Address(this.city);  // Assuming shallow copy for simplicity
+                }
+
+                @Override
+                public String toString() {
+                    return "Address{city='" + city + "'}";
+                }
+            }
+
+
+
+            public class Main {
+                public static void main(String[] args) {
+                    Address original = new Address("New York");
+                    Address copy = original.copy();
+                    System.out.println("Original: " + original);
+                    System.out.println("Copy: " + copy);
+                }
+           }
+        ```
+
+  
+
+
+  

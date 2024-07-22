@@ -17,7 +17,9 @@ export type ReactElement = {
     _source: Source,
   };
 
-     
+  const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setInputValue(event.target.value);
+  }; 
 
 interface ReactElement<P = any, T extends string | JSXElementConstructor<any> = string | JSXElementConstructor<any>> {
     type: T;

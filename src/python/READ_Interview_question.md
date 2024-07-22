@@ -61,6 +61,7 @@
                         - import  file.py                 - __init__.py is the one who tells Python this folder is a package 
 ### iterable 
            - any object is called iterable if it has the ability of to return one of its elements at a time. 
+           - it it traversable object, we could traverse all its element via for loops 
            - this mean a loop could iterate over the object and access any element in the object 
     
 ### indexing 
@@ -214,7 +215,6 @@
                 * inside that wrapper function , we invoke the param function 
        - if start with @ annotation like in java , it placed above the original function 
        ex: 
-
        ```
             def my_decorator(func):
 
@@ -235,3 +235,23 @@
             # Calling the decorated function (original function)
             say_hello()
         ```
+### Default assignment in a function in python
+       - the default element  inside  a function will be accessed in all the function calls
+       - all the default element will be in : 
+                                            ex: my_function.__defaults__
+       ```
+        def func(x, arr=[]):
+                arr.append(x)
+                return arr
+
+
+        listOne = func(56)
+        print(listOne) // this will print [56]
+
+        listTwo = func(78)
+        print(listTwo) // this will print [56, 78]
+        ```
+
+### range in a for loop 
+         for i in range(2,8)
+             print(1)   // 2 will be included but  8 will not be included 

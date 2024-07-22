@@ -42,6 +42,66 @@ the code runs in lambda is called function (upload it as zip file or design it i
 
 once the function is ready and loaded, just select which event to monitor
 
+## AWS lambda executing 
+     - via : 
+               * lambda console
+               * lambda API
+               * AWS SDK
+               * AWS CLI
+               * AWS toolkit  
+
+## AWS Lambda limitation :
+    - deployment package size 50 MB
+    - disk space 512 MB
+    - memory 128 MB to 10,240 MB
+    - execution time timeout 15 minutes or you could solve that by chaining multiple lambdas
+       and everyone print the output to the next one  
+
+
+## AWS Lambda layering :
+    - layers to manage common code and dependencies separately 
+
+    - easy to update one layer which contains small code (zip),  and let lambda use it it without touching 
+       the rest of the component of lambda 
+
+
+## AWS Lambda main components :
+
+         -  Handler Function (lambda-function):
+                        The main function that gets executed. contains the main code (java ... )
+
+         -  Event Source:
+                         Triggers/invoke the Lambda function (e.g., API Gateway, S3, DynamoDB).
+
+         -  Environment:
+                          The runtime environment (e.g., Python, Node.js) where your code executes.
+
+## Lambda function handler has always  2 params ( event, context)
+
+     - event: 
+               - contains  data  passed to the Lambda function when it is invoked. 
+                   * HTTP request
+                   * S3 event 
+                   * DynamoDB event 
+                   * Kinesis records  ( live data processing )
+                   * SQS message 
+                   * SNS notifications (Simple Notification Service)
+                   * Cognito triggers (Identity Federation : social sign-in or SAML integration )
+          
+   
+
+     - context : 
+                   - Monitor  Lambda function meta-data
+                        * request ID.
+                        * name/version of  Lambda-function.
+                        * configuration details.
+                        * Logging functions for CloudWatch Logs.
+                        * Methods  manage to timeouts Logs
+
+       
+## SAML Integration:
+        Integrate with enterprise identity systems using SAML (Security Assertion Markup Language) 2.0.
+
 ## 4 \*\* amazon redshift :
 
 data warehouse which provides analytics at scale
@@ -74,7 +134,7 @@ github => codeBuild => codedeploy => S3 storage
 2- computing : EC2, Elastic Beanstalk , Lambda , lightSat
 3- storage : s3, glacier , elastic block storage , elastic file system
 4- database : denamoDb , redis
-5- networking : route 53 , cloudFront
+5- networking : route 53 , cloudFront (content delivery network CDN )
 6- HA architecture
 7- analytics
 
@@ -142,8 +202,8 @@ it is a service that help do the following :
 ## 22  ** elastic beanStalk 
  service to:
   -  deploy and manage application in the cloud 
-  - scale the application on demand 
-  - provide the type of EC2 
+  -  scale the application on demand 
+  -  provide the type of EC2 
 
 ## 23 ** CloudWatch 
 
@@ -155,7 +215,7 @@ it is a service that help do the following :
  - the edge provide storage and and compute capability  as well 
   
 ## 25 ** cloudTrail 
-  monitor user activity and record it 
+ -  monitor user activity and record it 
 
 ## 26 ** ElasticCache
   caching service 
@@ -164,17 +224,42 @@ it is a service that help do the following :
     - server-less and event driven service 
     - run the app code  virtually without provisioning or managing servers 
 
-## 28 ** ECS 
 
-   Elastic Container Registry for AMI
+## 28 ** ECS (Elastic Container Service) 
+           - manage containers orchestration and lifecycle 
+
+           - managing microservices 
+
+           - managing batch processing jobs, 
+
+ ## ECR (Docker container registry)
+           - store, manage, and deploy Docker container images.
+
+
+##  AWS Fargate : 
+               -  Deploying Docker containers without managing server infrastructure.
+
+##  EC2 vs AWS Fargate 
+
+                                     EC2                                        |                      Fargate 
+
+                            - full control over  infrastructure                         -  abstracts infrastructure management, 
+
+                          
+                            
+
 
 ## 29 ** Amazon EFS
 elastic file system :
    add and remove files within EC2 
 
-## 30 **  Aurora 
+## 30 **  Aurora , MySql , Postgres
      
 it is the Sql database  managed by RDS 
+
+## Redis 
+       -  in-memory data-structure-store that can be used as a database, cache, and message broker.
+
 
 ## 31 **  RDS (Relational Database Service)
 
