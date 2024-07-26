@@ -129,48 +129,4 @@ WHERE category = 'books';
   on table_A.name = table_b.name 
 
 
-  ##  hibernate cache 
-           first level                               |             second level
-
-        - Session object  only, cant not be                 - SessionFactory level and shared between sessions 
-           share between sessions 
-
-        - enabled by default                                - disabled by default 
-      
-        - can not be disabled                               - can be enabled 
-
-        - closed one the session is closed                  - closed when the app is restarted 
-
-
-  ##  some Hibernate annotation 
-          @GeneratedValue :  define strategy of the primary key generation 
-                            - AUTO, IDENTITY, SEQUENCE
-
-          @OneToOne : define one to one mapping 
-
-          @Cascade : cascading actions between bean entities 
-
-          @Transient
-     ```
-        @Entity
-          public class ParentEntity {
-
-              @Id
-              @GeneratedValue(strategy = GenerationType.IDENTITY)
-              private Long id;
-
-              @OneToMany(mappedBy = "parent", cascade = CascadeType.ALL)
-              @Cascade(CascadeType.DELETE) // Apply cascade delete operation
-              private List<ChildEntity> children;
-          }
-      ```
-
-### Native query in hibernate 
-
-     var my_name = "hilal"
-
-      Query q =  session.createSQLQuery("select * from table_A where table_A = :name")
-               .addEntity(Employee.class)
-               .setParameter("name", my_name)
-
-      List result =  q.list()
+  

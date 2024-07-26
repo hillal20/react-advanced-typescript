@@ -301,11 +301,53 @@ application.properties :
 
         @Transactional will prevent metaDataRepo from saving if there is an error , it make sure that there is no error and if the employee fail 
            the metaDataRepo wont save as well
-           
 
 
 
+###  Features of Spring
 
+         1- Ioc (inversion of control) 
+            - Ioc Container manages objects/beans 
+            - promote loose coupling 
+            - the code is more modular an maintainable
+
+         2- Dependency Injection DI
+            - it is an implementation of Ioc 
+            - inject dependencies into components directly 
+            - easy to test the components and mock data 
+
+         3- Aspect Oriented Programming (AOP)
+            - isolate cross-cutting concerns ( logging, security , transaction management... )
+            - APO integrate seamlessly with core spring 
+
+         4- Data access
+            - support dbs via JDBC and ORM modules 
+            - offers integration with popular ORMs like hibernate 
+         
+         5- Transaction management 
+            - provide declarative transaction management with no low-level code ex: @Transaction 
+        
+         6- Spring Security 
+            - provide authentication and authorization and protection 
+        
+         7- Spring Data 
+            - provide integration with with DataBase 
+            - provide API for data sources : MongoDb , SQL ...
+         
+         8-Spring integration 
+            - integrate  with systems/applications via messaging , event-driven architectures and other integration-patters
+         
+         9- Spring Cloud 
+            - provides  tools for building distributed systems  and microservices : service discovery , configuration management , circuit breakers ...
+
+
+         10 - Testing 
+             - offers support for testing : Spring Test framework 
+        
+         11- Internationalization and localization 
+            -  provide support for multiple languages and regions 
+
+         
       
 
 

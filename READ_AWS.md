@@ -285,3 +285,26 @@ it is the Sql database  managed by RDS
 
 ## 36 **  EMR 
  Amazon  MapReduce : manage big data processing 
+
+
+
+ ### How to Get Started with ECS
+            - Set up a Cluster:
+                               Using the ECS Console, create a new cluster. Choose between EC2 (where you manage instances) or Fargate (serverless).
+                               Create a Task Definition:
+
+
+            - Define your task:
+                               using JSON or through the ECS Console. Specify container details, such as image, resource requirements, and networking settings.
+                               Run a Task or Service:
+
+            - Start a task:
+                              directly or create a service to maintain the desired number of task instances.
+                              Configure Networking and Security:
+
+            - Set up VPC:
+                              subnets, security groups, and load balancers to manage the network access and security of your tasks and services.
+                              Monitor and Scale:
+
+            - Use CloudWatch: 
+                             to monitor your tasks and services. You can scale your services manually or automatically using ECS Service Auto Scaling.

@@ -218,9 +218,9 @@
        - if one part of a system changes, the entire system doesn't need to change along with it. 
 
        ex:
-             Adapter, Decorator, Proxy, Composite
+             Adapter, Decorator, Proxy, Composite, Facade, Flyweight, Bridge 
 
-## behavioral patterns :
+## behavioral patterns:
 
          -  Deal with  the assignment and  responsibilities between objects.
          -  one-to-many dependency between objects
@@ -228,7 +228,7 @@
          -  requests  and  handlers,
 
          ex:
-              Observer, State, Command, Chain of Responsibility
+              Observer, State, Command, Chain of Responsibility , Interpreter , Iterator , Mediator, Memento , Strategy , Template , Visitor
 
 
    1- chain of Responsibility pattern: 
@@ -304,6 +304,25 @@
                         f - link for code  https://replit.com/@hillal20/Design-Pattern-State-pattern#src/main/java/Main.java
 
 
-                  
+
+    4- Observer pattern 
+                      -  if an event happened in a store( new arrivals)
+
+                      -  store(object) calls  the publisher  
+
+                      -  the publisher (object) calls the subscribers/listeners  (objects), the  publisher has a List<Listener>
+                     
+                      - Listener is an interface , because we could have different type of listeners : email , text ...
+
+                      -  then  every listener calls  the client (object)
+            
+
+                      - link for code https://replit.com/@hillal20/Java-Design-Pattern-Observer-Pattern#src/main/java/EmailListener.java
 
 
+
+
+## Architectural  patterns:
+
+         ex: 
+             Saga 

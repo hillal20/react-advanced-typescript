@@ -198,7 +198,7 @@ but class can only implements interface
    - let say we have 4 employee objects e1, e2, e3 , e4
 
    - map.put(e1, "hill"), map.put(e2, "fill"), map.put(e3, "bill") ...
-   
+
    - inside the put method there is a method called hash ,  this hash method  will take the employee object (e1) and passe it as a param to the hash method 
    - the hash method will create an index = 6 , this mean it will store the data in the bucket 6 : 
                          e1, "hill", 10101101 , null
@@ -867,9 +867,180 @@ private:
                     System.out.println("Copy: " + copy);
                 }
            }
+         ```
+
+### Memory Leak management 
+     - garbage collector does not recognize the unused object
+     - the unused object stays in the memory for ever 
+     - this reduce  the application memory allocation from the computer 
+     - until OutOfMemory error 
+     
+### causes of the memory leak :
+    - unused objects 
+    - static objects ( stay all the  application lifecycle )
+    - failure to clear the native resources (non java code )
+
+## preventing memory leak :
+    - avoid create no-needed objects 
+    - avoid string concatenation
+    - use StringBuilder
+    - closing session after finishing 
+    - avoid using static objects 
+    - don`t use System.gc()
+    - monitor memory usage : Java VisualVM , JConsole ...
+    - Use memory profiler tools : YourKit , VisualVM , Java Flight ...
+    - analyze heap dumps ...
+
+### ConcurrentHashMap 
+    - it is thread safe with high performance 
+    - thread can access and modify data synchronously 
+    - the way it works : 
+          - segmentation : concurrentHashmap is divided to segments,  each has buckets, each  considered as a independent hashTable, each thread modify one segment 
+          - hashing and indexing : every key has a hashCode
+          - to determine the place to change the data : hashCodeOfKey & numberOfSegment
+         
+
+###  we can not use lambda functions with no functional Interface
+     
+
+### default methods in interfaces 
+         - implemented methods in interfaces 
+         ```
+         public interface MyInterface {
+
+              
+              void abstractMethod();
+
+           
+              default void defaultMethod() {
+                  System.out.println("This is a default method in the interface.");
+                }
+
+         }
+         ```
+        - Optional Override in the classes , unlike abstractMethods where we need to implement them in classes 
+  
+###  we can  use lambda functions with functional Interface containing default method  and a static method as well 
+                        ```
+                         @FunctionalInterface
+                          public interface MyFunctionalInterface {
+                              void abstractMethod(int x);
+
+                              default void defaultMethod() {
+                                  System.out.println("This is the default method.");
+                              }
+                          }
+
+                          
+
+                          public class Main {
+                                public static void main(String[] args) {
+                                    
+                                    MyFunctionalInterface myFunc = (x) -> System.out.println("Abstract method implementation with value: " + x);
+                                    
+                                   
+                                    myFunc.abstractMethod(10);  // Output: Abstract method implementation with value: 10
+
+                            
+                                    myFunc.defaultMethod();     // Output: This is the default method.
+                                }
+                          }
+
+                        ```
+
+
+
+  ### SAM means  Single Abstract method 
+
+  ###  Functional Interface Example with Method References
         ```
+        @FunctionalInterface
+        interface MyFunctionalInterface {
 
-  
+            void performAction(String s);
+            
+            default void defaultMethod() {
+                System.out.println("This is a default method.");
+            }
+
+        }
 
 
-  
+       class MyClass {
+
+            public void instanceMethod(String s) {
+                System.out.println("Instance method called with: " + s);
+            }
+            
+
+            public static void staticMethod(String s) {
+                System.out.println("Static method called with: " + s);
+            }
+        }
+
+
+         MyClass myClassInstance = new MyClass();
+
+      
+        MyFunctionalInterface lambda = (s) -> myClassInstance.instanceMethod(s);
+        lambda.performAction("Lambda Expression");
+
+   
+        MyFunctionalInterface methodRef = myClassInstance::instanceMethod;
+        methodRef.performAction("Method Reference to Instance Method");
+
+       
+        MyFunctionalInterface staticMethodRef = MyClass::staticMethod;
+        staticMethodRef.performAction("Method Reference to Static Method");
+
+        
+        lambda.defaultMethod();
+     
+
+        ```
+ ### handle distributed transactions in microservices 
+
+       - payments application with 2 microservices 
+       - one takes orders  and the other one make the payments 
+       - there is 2 transactions : taking order , make payment
+       - how do we cancel the order if the payment fail ? both are independent servers 
+
+            * solution :
+                       - saga design pattern: 
+                                          * breaks down a distributed transaction into series of smaller local
+                                             transactions executed by individual services
+                                          * every service has its transaction and can emit events to trigger actions in the 
+                                             other services 
+
+
+
+                        - Event-driver architecture :
+                                          * services communicate via events asynchronously , one service give the order to the
+                                            the other  one to do the job 
+
+                        - Queue messaging : 
+                                          * publish messages and the messages with be read from the other services 
+                        
+
+                        - Event Sourcing 'CQRS' ( Command Query Responsibility Segregation )
+
+                                           * storing all logs related to changes 
+                                           * CQRS is separating writing form reading operations 
+
+
+## the recourse server validate JWT 
+    -  responsible for authenticating  other computers (recourses)
+    -  validate the digital signature of Jwt via public key and private key principle 
+
+
+## check VS unchecked exception
+
+     - checked exceptions: verified by compiler and  caught  within try-catch block , compiler force you to handle them 
+              ex: IOException , SQLException, FileNotFound, Interrupted , SQLException , ClassNotFound, NoSuchMethod, Instantiation, MalFormedURL, URISyntax,
+              ReflectiveOperation, GeneralSecurity ....
+
+
+     - unchecked exceptions :  no need to be handled (programming errors)
+
+              ex: NullPointerException , ArrayIndexOutOfBoundsException, ArithmeticException , JDBCException , HibernateException... 
+              
