@@ -119,6 +119,54 @@ i use variant prop in the component
 
 we get them from a external tool
 
+
+
+### Understanding the Difference between import and require:
+
+     - require: Used in CommonJS modules, which is the default module system in Node.js.
+        - package.json remove 
+              {
+              "type": "module",
+              }
+
+        - file extension: 
+           file.js
+
+
+     - import: Used in ES6 modules, a newer module system gaining popularity.
+        - package.json add: 
+              {
+              "type": "module", // For ES6 modules
+              }
+        - file extension: 
+           file.mjs
+         
+### ECMAScript 
+             - is the standardized specification for JavaScript.
+             - compatibility/consistency across  browsers and environments.
+
+
+
+## CommonJS and ES Modules
+            -   structure/organize code in JavaScript applications.
+
+
+## CommonJS vs. ES Modules (ES6)
+
+     - commonJS :
+            * Synchronous loading: Modules are loaded immediately when encountered.   
+            * require() function: Used to import modules.   
+            * module.exports object: Used to export modules.   
+            * Node.js default: Widely used in Node.js applications. 
+
+
+     - ES modules :
+            * Asynchronous loading: Modules are loaded lazily when needed.   
+            * import and export keywords: Used to import and export modules.   
+            * Modern standard: Part of the ECMAScript standard.   
+            * Browser and Node.js support: Increasingly supported in both environments.   
+
+
 ## 25 \*\* dns in node js
 
 dns is for looking the api address of a website or the revers
@@ -137,6 +185,9 @@ dns.reverse("54.201.247.181", (err, hostNames) => {
 ## 26 \*\* global modules in node
 
 console , setTimeout , setInterval , setImmediate ...
+
+
+
 
 ## 27 \*\* udp in node js
 
