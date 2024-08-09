@@ -36,6 +36,8 @@ exec getAllHerosWithTwoParams @Name = 'stones', @City = 'mancity';
 ```
 
 ## 2 ** Command to see all the procedures in the db
+
+
 ```
 SELECT routine_name, routine_type
 FROM information_schema.routines
@@ -46,6 +48,7 @@ WHERE routine_schema = 'DB_NAME' AND routine_type = 'PROCEDURE'
 
 
 ### 3 ** views in sql 
+
 views are a virtual custom tables to hide or show some columns or rows 
 
 ```
@@ -61,6 +64,8 @@ select * from showAllSuperHeros;
 
 
 ### 4 ** union in sql 
+
+
 it is combining two-select-queries in one resulting table , at condition the tables has the same column name 
 
 ```
@@ -129,4 +134,16 @@ WHERE category = 'books';
   on table_A.name = table_b.name 
 
 
-  
+  ### indexing 
+      ```
+      CREATE INDEX idx_customer_order_date_amount
+      ON Orders (CustomerID, OrderDate, TotalAmount);
+      ```
+
+
+### export Data: 
+  Use tools or SQL queries to export data from the relational database into a format that can be processed, such as CSV, JSON, or SQL dumps.
+      ```
+      SELECT * FROM table_name INTO OUTFILE '/path/to/file.csv' FIELDS TERMINATED BY ',' ENCLOSED BY '"' LINES TERMINATED BY '\n';
+      ```
+
