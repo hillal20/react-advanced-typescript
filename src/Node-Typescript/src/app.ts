@@ -5,13 +5,15 @@ import { request } from 'https';
 import nextHandler  from './handlers/nextHandler'
 import errorHandler from './handlers/errorHandler'
 import connectDB from './db/connectToDB';
-
+import cors from 'cors';
 
 const app: Application = express();
 
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+app.use(cors())
+
 connectDB();
 
 app.use(nextHandler)

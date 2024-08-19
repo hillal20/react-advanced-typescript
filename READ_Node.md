@@ -1201,21 +1201,46 @@ export default function App() {
 
 ## 79 ** redux setups 
 
-```
-import {Provider} from 'react-redux';
-import thunk from 'redux-thunk';
-import logger from 'redux-logger';
-import { createStore, applyMiddleware } from 'redux';
-import  reducers from './allReducers';
+        ```
+        import {Provider} from 'react-redux';
+        import thunk from 'redux-thunk';
+        import logger from 'redux-logger';
+        import { createStore, applyMiddleware } from 'redux';
+        import  reducers from './allReducers';
 
 
-const store = createStore(reducers, applyMiddleware(thunk, logger))
+        const store = createStore(reducers, applyMiddleware(thunk, logger))
 
 
-ReactDOM.render(
-<Provider store={store}>  
-    <App />  
-   
- </Provider> ,
+        ReactDOM.render(
+        <Provider store={store}>  
+            <App />  
+        </Provider>) 
+        ```
 
- ````
+###  swr (stale-while-revalidate)
+    import useSWR from "swr";
+
+    const { data, error } =   useSWR(dataUrl, (url: string) =>
+                                                                axios(url)
+                                                                .then((r) => r.data)
+                                   );
+
+
+
+
+#### react lazy  loading 
+
+
+
+
+
+        const UserProfile = React.lazy(() => import('./UserProfile'));
+
+                      function App() {
+                        return (
+                          <React.Suspense fallback={<div>Loading...</div>}>
+                            <UserProfile user={user} />
+                          </React.Suspense>
+                        );
+                      }

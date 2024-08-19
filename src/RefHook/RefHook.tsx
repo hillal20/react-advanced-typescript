@@ -4,9 +4,7 @@ const useRefHook = () => {
   const [value, setValue] = useState<boolean>(false);
   const inputRef = useRef(null);
 
-  const hoverHandler = () => {
-    setValue(true);
-  };
+  const hoverHandler = () =>  setValue(true);
   const blurHandler = () => setValue(false);
 
   useEffect(() => {

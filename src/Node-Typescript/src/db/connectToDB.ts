@@ -1,6 +1,6 @@
 
 import  mongoose from 'mongoose';
-const uri = "mongodb+srv://hilalaissani:<Password>@cluster0.oe5ry.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0";
+const uri = "mongodb+srv://hilalaissani:Hillal200@cluster0.oe5ry.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0";
 
 const clientOptions = { 
     serverApi: { version: '1', strict: true, deprecationErrors: true }

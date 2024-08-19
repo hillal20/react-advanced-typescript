@@ -1,11 +1,10 @@
-import React, { LegacyRef } from "react";
+import { LegacyRef } from "react";
 import useRefHook from "./RefHook";
 
 const InputUsingRefComponent = () => {
   const [inputRef, value] = useRefHook();
-  console.log("value ===> ", value);
   return (<>
-    <p>this is input with refHook {JSON.stringify(value)}</p>
+    <p>this is input with refHook ***** {JSON.stringify(value)} *****</p>
 
     <input
       ref={inputRef as LegacyRef<HTMLInputElement>}

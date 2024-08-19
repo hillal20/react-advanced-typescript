@@ -277,7 +277,31 @@
             - creating multiple copies (replicas) of the same data                          -    handle large amounts of data and high traffic
                across different servers
 
+### replication 
+
+              ex :
+                  mongo --port 27017
                
+               rs.initiate({
+                                _id: "myReplicaSet",
+                                members: [
+                                                { _id: 0, host: "localhost:27017" },
+                                                { _id: 1, host: "localhost:27018" },
+                                                { _id: 2, host: "localhost:27019" }
+                                         ]
+                        });
+
+                rs.status();
+               
+                use myDatabase;
+                db.myCollection.insertOne({ name: "Alice", age: 30 });
+   
+                mongo --port 27018
+
+                use myDatabase;
+                db.myCollection.find();
+
+
 ### How does MongoDB ensure data durability?
 
 -  via :
@@ -435,13 +459,22 @@
 
 ###  MongoDB handle concurrency?
 
-                        - multi-granularity locking model, which includes:
-                                                                        - database-level,
-                                                                        - collection-level, 
-                                                                        - document-level locks,
+                        - multi-granularity locking levels: 
+                                                        - database-level :  only one transaction can modify the database at a time, while others must wait
+                                                        - collection-level : only one transaction can modify the collection at a time, while others must wait
+                                                        - document-level locks: only one transaction can modify document at a time, while others must wait
 
-                                        to handle concurrency and ensure data consistency.
+                        -  WiredTiger Storage Engine:
+                                                   - allowing multiple operations to be processed concurrently
+                                                   - Document-level:
+                                                                   - document-level locking
+                                                                   - concurrency: writes to different documents can occur simultaneously without conflict
 
+                        - optimistic-concurrency-control approach via $isolated: 
+                                                                                multiple operations can usually complete without conflict.
+                                                                              
+
+                        - multi-document transactions are supported by  ensuring ACID           
 
 ### storage engine in MongoDB?
 
@@ -459,7 +492,12 @@
 
 ### back up a MongoDB database?
 
-                - using methods such as mongodump,
+                - using methods such as mongodump:
+                                                 - create a binary-backup of db
+                        ex: 
+                        mongodump --uri="mongodb://localhost:27017/myDatabase" --out=/backups/myDatabaseBackup
+
+
                 - file system snapshots,
                 - MongoDB Atlas automated backups.
 
@@ -469,7 +507,11 @@
                 -  effective shard key
                 -  managing data distribution
                 -  query performance,
-                -  complexity of a distributed system.
+                -  complexity of a distributed system: 
+                                                      - Uneven distribution can lead 
+                                                      - the bigger number of shards  the more complexity of queries grow
+                                                      -  system failures lead to data loss 
+                                                      - latency  slow down the communication between shards,
         
 ### shard key
           -  field  to determine how data is distributed across the shards

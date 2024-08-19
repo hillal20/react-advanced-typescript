@@ -1,14 +1,17 @@
-import { configureStore } from '@reduxjs/toolkit';
+import { Reducer, UnknownAction, configureStore, combineReducers } from '@reduxjs/toolkit';
 import { appReducer } from './reducer';
+import { reduxThunkReducer} from './reduxThunkReducer';
 import logger from 'redux-logger'
 
 
+const rootReducer =  combineReducers({
+    appReducer ,
+    reduxThunkReducer 
+});
+
 export const store = configureStore({
-    reducer: {
-        appReducer
-    },
-    middleware: (getDefaultMiddleware: any) =>
-        getDefaultMiddleware().concat(logger), // Add logger middleware
+    reducer: rootReducer as unknown as Reducer<any, UnknownAction, any>,
+    middleware: (getDefaultMiddleware: any) =>  getDefaultMiddleware().concat(logger), // Add logger middleware
     devTools: process.env.NODE_ENV !== 'production',
 });
 
