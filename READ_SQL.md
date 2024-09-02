@@ -147,3 +147,14 @@ WHERE category = 'books';
       SELECT * FROM table_name INTO OUTFILE '/path/to/file.csv' FIELDS TERMINATED BY ',' ENCLOSED BY '"' LINES TERMINATED BY '\n';
       ```
 
+
+
+
+
+
+### the third highest salary 
+
+SELECT DISTINCT salary
+FROM employees
+ORDER BY salary DESC
+LIMIT 1 OFFSET 2;

@@ -1,4 +1,4 @@
-### 1 \*\* core java interview questions
+## 1 \*\* core java interview questions
 
 java is not 100 OOP because it has :
 boolean , char , int ,float , double , long , short , byte
@@ -64,49 +64,56 @@ _ Empty interface :
 via making the constructor private and we create a private and static field to hold the single instance of that class
 and we make a static method to generate an object of the class itself
 
-## 12 \*\* pojo in java is a normal class
+## 12 \*\* pojo in java
+ is a normal class
 
-## 13 \*\* Bean in java the class has to
+## 13 \*\* Bean in java
+            the class has to
 
-_  implements Serializable class
-_  all the fields are private , 
--  no argument constructor
--  setters and getters public
+            _  implements Serializable class
+            _  all the fields are private , 
+            -  no argument constructor
+            -  setters and getters public
 
 ## ** 14 ** tight coupling
 
-means in one class there somewhere the need to another class to run
+                means in one class there somewhere the need to another class to run
 
 ## 15 \*\* loosely coupled
 
-means we have an interface and 3 implementations of it , the fourth class has the choice of choosing from 3 class to run it code .
+             means we have an interface and 3 implementations of it , the fourth class has the choice of choosing from 3 class to run it code .
 
 ## 16 \*\* Sorting in java using Comparable interface (comparTo)
 
-Collections.sort(list<LapTop>) , the list has to be a list of primitive types.
-if the list has objects then we can not sort , we need to have the LapTop of the list implements Comparable<LapTop>, and we @override the comparTo method
+        Collections.sort(list<LapTop>) , the list has to be a list of primitive types.
+        if the list has objects then we can not sort , we need to have the LapTop of the list implements Comparable<LapTop>, and we @override the comparTo method
 
-```
-@Override
-public int compareTo(LapTop laptop){
-    // this will represent the first object
-        return this.price > laptop.price ? -1 : 1;
-    }
+        ```
+        @Override
+        public int compareTo(LapTop laptop){
 
-Collections.sort(list<LapTop>)
+            // this will represent the first object, the argument means the next one in line 
+            // if the next is smaller than we going descending (-1), if the next is bigger we are ascending (1)
 
-```
+                return this.price > laptop.price ? -1 : 1;
+            }
+
+        Collections.sort(list<LapTop>)
+
+        ```
 
 ## 17 ** Sorting in java using Comparator interface (compare )
- we use the Comparator interface  , 
- ```
- Comparator<LapTop> priceComparator  = new Comparator<LapTop>(){
-           public int compare(LapTop lap1 , LapTop lap2){
-               return lap2.getPrice() > lap1.getPrice() ? -1: 1;
-           } 
-        };
-       Collections.sort( list<LapTop> , priceComparator);
-```
+        we use the Comparator interface  , 
+        ```
+        Comparator<LapTop> priceComparator  = new Comparator<LapTop>(){
+                                                                            public int compare(LapTop lap1 , LapTop lap2){
+
+                                                                                             return lap2.getPrice() > lap1.getPrice() ? -1: 1;
+                                                                                         } 
+                                                                                             
+                                                                     };
+            Collections.sort( list<LapTop> , priceComparator);
+        ```
 ## 18 ** Implements and extends in java 
 
 interfaces can extends themselves 
@@ -119,8 +126,8 @@ but class can only implements interface
 
 1 -  Collection framework  Hierarchy : has a main  Collection  interface which is the root. It contains 4 extended  interfaces : 
                                                      List ,
-                                                     Queue,
                                                      Set,
+                                                     Queue,
                                                      Map 
 
 2 - List , Queue and Set extends Collection interface 
@@ -143,11 +150,11 @@ but class can only implements interface
                                    PriorityQueue 
                 and one interface : 
                                    DeQueue , which gives class: 
-                                                             ArrayDeQue 
+                                                             ArrayDeQueue 
 7 - Map interface gives classes :
                                  HashMap 
                                  hashTable 
-                and on interface :
+                and one interface :
                                  SortedMap, which gives class:
                                                               TreeMap 
                                                               
@@ -158,7 +165,7 @@ but class can only implements interface
           2- Collection.add(value) method never store key/value like 
              Map.put(key,value)
 
-## 21 ** Fail-fast and fain-safe Iterators 
+## 21 ** Fail-fast and fail-safe Iterators 
 - fail-fast Iterator : 
                        - throw ConcurrentModificationException while  iterating a collection if a modification happens 
                        - throw immediate Exception in case of failure 
@@ -180,8 +187,25 @@ but class can only implements interface
 ## 23 **  Synchronized Collection VS Concurrent Collection 
  - both thread safe 
  - only the performance and the scalability differs
- - synchronized collections (hashmap) are slower  then Concurrent collections 
-   like ConcurrentHashMap 
+ - synchronized collections are part of the java.util.Collections 
+        - They achieve thread safety by wrapping a regular collection (like ArrayList, HashMap, etc.);
+        - Suitable for small-scale applications
+
+        ex: 
+         List<String> synchronizedList = Collections.synchronizedList(new ArrayList<>());
+        synchronized(synchronizedList) {
+                                      synchronizedList.add("Item");
+             }
+  
+
+  - ConcurrentHashMap , CopyOnWriteArrayList, ConcurrentLinkedQueue: 
+           -   part of the java.util.concurrent
+           -    allowing multiple threads to access and modify the collection simultaneously
+
+           ex:
+            ConcurrentMap<String, Integer> concurrentMap = new ConcurrentHashMap<>();
+            concurrentMap.put("key1", 1);
+            concurrentMap.put("key2", 2);
  - in synchronized collection only one thread modify a element, the rest they wait for the collection to be free 
  - in Concurrent , the other threads can access to the non-touched elements instead of waiting 
 
@@ -307,9 +331,40 @@ if a method in the parent class is public , if we override the method  in the ch
 if a class is the parent and it has a child class extended from it ,
 and the child  overrode one method of the parent 
 
-if we generate an object from  the child , and even if the type of the obj was the parent class, if we call the overrode method , the child method will be called
+  - if we generate an object from  the child ,
+  - and even if the type of the obj was the parent class,
+  - if we call the overrode method , the child method will be called
 
-but if we supply the overrode method with the static key word in both parent and child , and if we call the overrode method from the obj , then  the parent method will be invoked instead 
+  - but if we supply the overrode method with the static key word in both parent and child , 
+  - and if we call the overrode method from the obj ,
+  -  then  the parent method will be invoked instead 
+
+    ex: 
+
+
+        class Parent {
+            static void display() {
+                System.out.println("Parent display");
+            }
+        }
+
+        class Child extends Parent {
+            static void display() {
+                System.out.println("Child display");
+            }
+        }
+
+        public class Main {
+            public static void main(String[] args) {
+                Parent parentObj = new Parent();
+                Parent childObj = new Child();
+
+                parentObj.display();  // Calls Parent's static method
+                childObj.display();   // Also calls Parent's static method
+            }
+        }
+
+
 
 ## 35 ** Association , aggregation and composition 
 
@@ -328,7 +383,7 @@ but if we supply the overrode method with the static key word in both parent and
 
 
 ## 36 ** Covariant return type 
-the overrode method in the child has to have the same return type  as the parent method , or a child of it
+the overrode method in the child has to have the same return type  as the parent method , or a child of it (an extended class)
      ex : parent return type Object 
           child return type String 
           String is a child of Object 
@@ -404,12 +459,13 @@ private:
                      - storing objects/arrays in runtime
                      - Managed by the garbage collector.
                      - All objects created using the new keyword 
+                     - contain String pool ( ensure that the same string literals stored only once )
 
          - Stack Memory:
                      - storing local-variables/method-call information.
 
          - Method Area (Non-Heap Memory):
-                    - Stores class structures (metadata)/method information / static variables / constant pool.
+                    - Stores class-loaded information /method information / static variables / constant pool .
                     - Shared among all threads 
                     - Classes and methods loaded by the JVM are stored in the method area.
 
@@ -515,7 +571,7 @@ private:
                                    private MyService myService;
                                    ```
 
-### AOP (Aspect Oriental Programming)
+## AOP (Aspect Oriental Programming)
            - programming paradigm 
                                    to segregate cross-cutting concerns : 
                                                logging, security , profiling , transaction management ... 
@@ -1044,3 +1100,76 @@ private:
 
               ex: NullPointerException , ArrayIndexOutOfBoundsException, ArithmeticException , JDBCException , HibernateException... 
               
+
+
+
+## Map methods
+   
+            Map<String, Integer> map = new HashMap<>();
+
+            map.put("Apple", 1);
+
+            map.replace("Apple", 2);
+            map.replace("Apple", 2, 3); // Updates value if current value is 2
+            map.replaceAll((key, value) -> value + 1); // Increments all values by 1
+
+            map.merge("Apple", 2, (oldValue, newValue) -> oldValue + newValue); // Adds 2 to the existing value
+
+            map.compute("Apple", (key, value) -> (value == null) ? 1 : value + 1); // Increment value
+            map.computeIfAbsent("Banana", key -> 2); // Adds "Banana" with value 2 if not present
+            map.computeIfPresent("Apple", (key, value) -> value + 1); // Increment value if present
+
+            map.remove("Apple");
+            
+
+            map.get("Apple");
+            map.getOrDefault("Orange", 0);  // Returns 0 if "Orange" is not found
+ 
+            map.getOrDefault("Orange", 0);
+            map.containsValue(1);
+
+            map.size();
+            map.isEmpty();
+
+             map.clear();
+
+         
+            for (String key : map.keySet()) {
+                System.out.println(key + " = " + map.get(key));
+            }
+
+            for (Integer value : map.values()) {
+                 System.out.println(value);
+             }
+
+             for (Map.Entry<String, Integer> entry : map.entrySet()) {
+                   System.out.println(entry.getKey() + " = " + entry.getValue());
+             }
+             
+
+## splice() and slice()  
+
+                     List<String> list = new ArrayList<String>(Arrays.asList("a", "b", "c", "d", "e"));
+
+                    int start = 2;
+                    int deleteCount = 2;
+                    
+                    List<String> newItems = Arrays.asList("x", "y");
+                    List<?> subList = list.subList(start, start + deleteCount);
+
+                    System.out.println("list before clear: " + list);
+                    System.out.println("subList before clear: " + subList);
+                
+
+                    subList.clear();
+
+                    System.out.println("list after  clear: " + list);
+                    System.out.println("subList after clear   : " + subList);
+                
+                    
+                    list.addAll(start, newItems);
+                    list.add(1, "h");
+                    list.add("z");
+                    list.remove(0);
+                    System.out.println("Modified List: " + list);
+                

@@ -1,6 +1,6 @@
 ## 1- Can you describe a time when you had to handle a difficult client? 
 
-* client was  dissatisfied with the progress of a project.
+* client was dissatisfied with the progress of a project.
 * scheduled a meeting with them to understand their concerns and address them directly.
 * listen to their perspective,
 * identify the root cause of the problem
@@ -137,6 +137,111 @@
  6- problem solving 
  7- analytical skills 
  8- attention to details 
+
+
+
+
+
+
+
+
+## making decisions in ambiguous situations
+
+                - gathering all available information
+                - even if it's incomplete
+                - use experience and intuition.
+                - flexible
+                - adjusting my decision
+                - Prioritize the  critical factors
+                - consult with others to gain different perspectives,
+                - potential risks and outcomes.
+                - stay calm,
+                - accept uncertainty as part of the process
+                - ready to adapt as the situation evolves
+                - options enabling 
+
+## Joining/fitting in with a new team and sharing fresh ideas
+
+                - actively listening
+                - understanding the team’s dynamics,goals, and existing processes.
+                - showing respect.
+                - Introduce your ideas gradually,
+                - consider my idea as an enhancements/alternatives rather than outright changes.
+                - open to feedback 
+                - adapt my ideas to align with the team’s objectives.
+                - Establishing trust 
+                - value the team's expertise
+                - make my fresh ideas  easy to understand so it will be accepted.
+
+
+## A time I got outside of my comfort zone  
+
+               -  my development manager left , 
+               -  new manager  took over the project.
+               -  adjust my role significantly,
+               -  extending my priorities
+               -  help bridge the knowledge gap.
+               -  new manager often made decisions that weren't feasible
+               -  diplomatically guide him by discussing the technical aspects he was missing 
+               -  suggesting more realistic alternatives.
+               -  require tactful communication to ensure the manager felt supported while steering the project in the right direction. 
+               -  it helped me grow in both leadership and communication.
+
+
+## Handling high-stress situations
+
+                - staying calm and composed
+                - breaking down the problem
+                - I prioritize tasks 
+                - Clear communication 
+                - keep everyone involved informed about the situation and our progress.
+                - experience and intuition to make quick decisions.
+                - Taking short breaks 
+                - avoid burnout. 
+                - stay adaptable and focused
+                - find solutions rather than become  overwhelmed
+
+## Navigating internal politics and relationships
+                - clear communication
+                - strategic thinking.
+                - understand  dynamics
+                - positive relationships
+                - being respectful,
+                - good listener.
+                - Avoid taking sides in conflicts
+                - focus on common goals
+                - foster collaboration.
+                - transparent
+                - consistent in your actions
+                - build trust,
+                - tactful
+                - handling sensitive issues.
+                - understanding the  organizational context
+                - maintaining professional integrity.
+
+## Weighing the success of the group/project vs. the feelings of an individual
+
+                - balance between team goals and maintaining team morale.
+                - ensure the project meets its objectives,
+                - overall success benefits everyone
+                - address individual concerns, 
+                - maintain team’s cohesion and productivity.
+                - the project’s success first 
+                - the individual’s concerns second
+                - understanding how they affect both the person and the team.
+                - seek solutions that align the individual's needs with the project’s goals,
+                - adjusting roles,
+                - providing support
+                - offering compromise.
+                - Open communication 
+                - explaining the project’s priorities
+                - way to address their feelings while keeping the group on track.
+                - ensure the project’s success while also fostering a positive environment where individuals feel valued and heard. 
+                - Balancing these aspects can lead to better long-term outcomes for both the team and the individual.
+
+
+
+
 
 
 

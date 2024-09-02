@@ -6,6 +6,67 @@
 * this is server is called embedded servlet container as well 
 * this container allows hot reload for developers 
 
+
+
+#### spring boot imports 
+
+      1- Core imports :
+                         import org.springframework.boot.SpringApplication;
+                         import org.springframework.boot.autoconfigure.SpringBootApplication;
+
+
+
+
+      2- Dependency Injection:
+
+                        import org.springframework.beans.factory.annotation.Autowired;
+                        import org.springframework.context.annotation.Bean;
+                        import org.springframework.context.annotation.Configuration;
+
+
+      3- Web Layer (REST Controllers, etc.)
+
+                        import org.springframework.web.bind.annotation.GetMapping;
+                        import org.springframework.web.bind.annotation.PostMapping;
+                        import org.springframework.web.bind.annotation.RequestMapping;
+                        import org.springframework.web.bind.annotation.RequestBody;
+                        import org.springframework.web.bind.annotation.PathVariable;
+                        import org.springframework.web.bind.annotation.RestController;
+
+      4- Data Access (Spring Data JPA)
+
+                        import org.springframework.data.jpa.repository.JpaRepository;
+                        import org.springframework.data.repository.CrudRepository;
+                        import org.springframework.data.repository.query.Param;
+                        import org.springframework.transaction.annotation.Transactional;
+
+        5- AOP (Aspect-Oriented Programming)
+
+                        import org.aspectj.lang.annotation.Aspect;
+                        import org.aspectj.lang.annotation.Before;
+                        import org.aspectj.lang.annotation.After;
+                        import org.aspectj.lang.annotation.Around;
+                        import org.aspectj.lang.annotation.Pointcut;
+
+        6- Actuator
+                        import org.springframework.boot.actuate.health.Health;
+                        import org.springframework.boot.actuate.health.HealthIndicator;
+                        import org.springframework.boot.actuate.endpoint.annotation.Endpoint;
+                        import org.springframework.boot.actuate.endpoint.annotation.ReadOperation;
+
+
+        7- Testing
+
+                        import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
+                        import org.springframework.test.web.servlet.MockMvc;
+                        import org.junit.jupiter.api.Test;
+                        import org.springframework.boot.test.mock.mockito.MockBean;
+                        import static org.mockito.Mockito.*;
+                        import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
+                        import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
+
+
+
 ## 2 ** changing the port of the server 8080
 in 
 application.properties file :    server.port=9090

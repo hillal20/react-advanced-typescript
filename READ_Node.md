@@ -683,7 +683,7 @@ const fn = (param1 ) => (parma2) => (param3 ) => console.log(parma1,param2,param
     const y =   x("Mister")
          y("Aissani") // this will console Hello Mister Aissani
 
-## 50 \*\* namespacing in javascript
+## 50 \*\* name-spacing in javascript
 
 let say u are using 2 script tags in the html in app ,
 every script is sourcing a js file , DO NOT Name the variables the same even they are located in different files , because the collision will happen in the html
@@ -824,7 +824,7 @@ const promise = new Promise((resolve, reject) => {
   if(result) resolve("data is here");
   else reject(new Error("error is here "));
   setTimeout(() => {
-    console.log("==> inside timeout of promise ") // 9
+    console.log("==> inside timeout of promise ") // 10
   })
   console.log("==> end of promise ")  // 4
 
@@ -842,21 +842,26 @@ console.log("==> end"); //5
 
 ## 59 \*\* promise combinator
 
-Promise.all([]):
-               * return all resolved promises without order or the  first rejected one
-
-Promise.race([]):
-               *  only  the first resolved or rejected , whoever comes first
-
 Promise.allSettled([]):
                * returns all the promises either good or failed ones as  objects
+
+Promise.all([]):
+               * return all resolved promises without order or the  first rejected one
 
 Promise.any([]) :
                * the first resolved or all rejected
 
+Promise.race([]):
+               *  only  the first resolved or rejected , whoever comes first
+
+
+
+
 ## 60 \*\* PolyFill in java script
 
 is a code to the browsers to le them override or create something is not native in them
+
+
 
 ## 61 \*\* this key world
 
@@ -1163,7 +1168,7 @@ import "./styles.css";
 
 export default function App() {
   const [state, setState] = useState("");
-  const [stateTime , setStateIime ] = useState(0);
+  const [stateTime , setStateTime ] = useState(0);
   const [debouncedState, setDebouncedState] = useState(state);
   const ref = useRef(Date.now());
   const limit = 1000;
@@ -1180,7 +1185,7 @@ export default function App() {
 
   const inputHandler = (e) => {
     setState(e);
-    setStateIime(Date.now());
+    setStateTime(Date.now());
   };
   return (
     <div className="App">

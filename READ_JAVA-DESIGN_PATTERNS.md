@@ -218,7 +218,11 @@
        - if one part of a system changes, the entire system doesn't need to change along with it. 
 
        ex:
-             Adapter, Decorator, Proxy, Composite, Facade, Flyweight, Bridge 
+             - Adapter: 
+                       makes it possible for the two classes, which work with different formats, to function together seamlessly.
+             
+             - 
+             , Decorator, Proxy, Composite, Facade, Flyweight, Bridge 
 
 ## behavioral patterns:
 

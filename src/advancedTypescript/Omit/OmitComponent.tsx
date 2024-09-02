@@ -8,7 +8,7 @@ const OmitComponent = ({
 }) => {
   return (
     <h3>
-      Omit Component : {phone.model} ** country {phone.country}
+      Omit Component : {phone.model} ** country {phone.country} **
     </h3>
   );
 };
