@@ -415,4 +415,56 @@
                  maxSumOfQualities([89,48,14] ,3)
                 ```
 
-                                    
+
+
+## Question 7  health and type of servers 
+
+ -  n servers of different types.
+ -  facility with a maximum of
+ -  k distinct types of servers and the sum of their health should be maximized
+ -  Given arrays health and serverType,
+ -  find the maximum sum of the health for up to k types of servers. 
+
+
+ex:  
+   health = [4, 5, 5, 6 ]
+   serverType = [1, 2, 1, 2] 
+   k = 1  
+
+solution :
+           ====> 
+           ```
+            const fn = (healths , types , k )=> {
+                    const result = {};
+                    
+                    for(let i = 0; i < types.length ; i ++){
+                        const type = types[i];
+                        const health =  healths[i]
+                        let currentHealth =  result[type];
+                        if(!currentHealth){
+                            result[type] = health 
+                            continue
+                        }
+                        result[type] =  health + currentHealth
+                        
+                    }
+
+                    const entries = Object.entries(result);
+                    const sortedEntries = entries.sort(([,value1], [,value2]) => value1 < value2 ? 1:  -1);
+                    const sortedMap = new Map(entries);
+                    
+                    let count = 1 ;
+                    let maxSum = 0;
+                    for(const [ke, value] of sortedMap.entries()){
+                        if(count > k) break;
+                        maxSum += value;
+                        count++;
+                    }
+
+                  console.log("maxSum ===> ", maxSum)
+                  return  maxSum;
+                }
+                fn([4, 5, 5, 6], [1, 2, 1, 2], 2)
+           ```
+
+
