@@ -419,52 +419,199 @@
 
 ## Question 7  health and type of servers 
 
- -  n servers of different types.
- -  facility with a maximum of
- -  k distinct types of servers and the sum of their health should be maximized
- -  Given arrays health and serverType,
- -  find the maximum sum of the health for up to k types of servers. 
+                    -  n servers of different types.
+                    -  facility with a maximum of
+                    -  k distinct types of servers and the sum of their health should be maximized
+                    -  Given arrays health and serverType,
+                    -  find the maximum sum of the health for up to k types of servers. 
 
 
-ex:  
-   health = [4, 5, 5, 6 ]
-   serverType = [1, 2, 1, 2] 
-   k = 1  
+                    ex:  
+                    health = [4, 5, 5, 6 ]
+                    serverType = [1, 2, 1, 2] 
+                    k = 1  
 
-solution :
-           ====> 
-           ```
-            const fn = (healths , types , k )=> {
-                    const result = {};
-                    
-                    for(let i = 0; i < types.length ; i ++){
-                        const type = types[i];
-                        const health =  healths[i]
-                        let currentHealth =  result[type];
-                        if(!currentHealth){
-                            result[type] = health 
-                            continue
-                        }
-                        result[type] =  health + currentHealth
+            solution :
+                            ====> 
+                            ```
+                                const fn = (healths , types , k )=> {
+                                        const result = {};
+                                        
+                                        for(let i = 0; i < types.length ; i ++){
+                                            const type = types[i];
+                                            const health =  healths[i]
+                                            let currentHealth =  result[type];
+                                            if(!currentHealth){
+                                                result[type] = health 
+                                                continue
+                                            }
+                                            result[type] =  health + currentHealth
+                                            
+                                        }
+
+                                        const entries = Object.entries(result);
+                                        const sortedEntries = entries.sort(([,value1], [,value2]) => value1 < value2 ? 1:  -1);
+                                        const sortedMap = new Map(entries);
+                                        
+                                        let count = 1 ;
+                                        let maxSum = 0;
+                                        for(const [ke, value] of sortedMap.entries()){
+                                            if(count > k) break;
+                                            maxSum += value;
+                                            count++;
+                                        }
+                                    console.log('sortedMap ===> ', sortedMap);
+                                    console.log("maxSum ===> ", maxSum)
+                                    return  maxSum;
+                                    }
+                                    fn([4, 5, 5, 6], [1, 2, 1, 2], 2)
+                            ```
+
+
+
+
+
+## question 8 servers and states ON an off 
+                    - In one operation, they can choose a contiguous sequence of servers
+                    - and flip their states, ie. ON to OF and vice versa.
+                    - Due to operational constraints, this operation can be performed on the cluster a maximum of k times.
+                    - Given a binary string server_states, of length n,
+                    - where '1'  represents ON , 'O'  represents OFF,
+                    - and an integer k, 
+                    - find the maximum possible number of consecutive ON servers after at most k operations
+
+                    ex: 
+                            Suppose server states ="1001", and k=2.
+
+         solution ===> 
+
+                        ```
+                            const fn = (str, k) => {
+                                        const rex0 = /[0]+/g;
+                                        const rex1 = /[1]+/g;
+                                        const found = str.match(rex0);
+                                        found.sort((a,b) => b.length - a.length)
+                                        let maxLength = 0;
+                                        
+                                        for(let i = 0; i < k ; i ++){
+                                            let  x = found[i];
+                                            if(x){
+                                                let newX = x.replace(/0/g, '1')
+                                                str = str.replace(x, newX);
+                                                const newMaxLength = str.match(rex1).sort((a,b) => b.length - a.length)[0].length;
+                                                if(newMaxLength > maxLength){
+                                                    maxLength = newMaxLength;
+                                                }
+                                            }
+                                            else {
+                                                // to stop the loop is there is no founds of zeros regardless the k times
+                                            break;
+                                            }
+                                        
+                                        }
+                                        console.log("max length ==> ",maxLength)
+                                    }
+
+                            fn('1001', 9)
+                        ```
+
+
+## question 9:  number of servers to be replaced to keep the  sum of processing-power of  sequence-of-servers equal 
+
+                        -  processing power of server[i] 
+                        -  num_ tasks to any contiguous segment of servers,
+                        -  from index i to i + num_tasks - 1 for any valid index i 
+
+                        -  the sums of processing powers of any of these subArrays to be equal.
+                        -  replace any server with one any processing power
+
+                        - find the minimum number of servers replaced 
+                        -  so every contiguous subArray of num_tasks servers has an equal sum of processing powers
                         
-                    }
+                            ex:                        i            i
+                            n = , 4 server = [ 1 , 2, 3, 2, 3, 4 , 3, 7, 8 ] ,  num_tasks = 5 
 
-                    const entries = Object.entries(result);
-                    const sortedEntries = entries.sort(([,value1], [,value2]) => value1 < value2 ? 1:  -1);
-                    const sortedMap = new Map(entries);
-                    
-                    let count = 1 ;
-                    let maxSum = 0;
-                    for(const [ke, value] of sortedMap.entries()){
-                        if(count > k) break;
-                        maxSum += value;
-                        count++;
-                    }
-
-                  console.log("maxSum ===> ", maxSum)
-                  return  maxSum;
-                }
-                fn([4, 5, 5, 6], [1, 2, 1, 2], 2)
-           ```
+                                                i = 2 
+                                                i = 6 
+                            solution ==> : 
 
 
+                                        ```
+                                        const fn = ( servers , nTasks)=>{
+                                                        let minimum = 0;
+                                                        const serversLength = servers.length;
+                                                        const result = {}
+                                                        
+                                                        const helper = (subArr)=> {
+                                                                const sumOfProcessing = subArr.reduce((acc,e)=>{
+                                                                    acc += e;
+                                                                    return acc;
+                                                                }, 0)
+                                                                const current = result[sumOfProcessing] ;
+                                                                if(!current){
+                                                                    result[sumOfProcessing] = 1
+                                                                }else{
+                                                                    result[sumOfProcessing] =  ++result[sumOfProcessing]
+                                                                }
+                                                                
+                                                        }
+                                                        
+                                                        
+                                                        for(let i = 0; i < serversLength; i ++){
+                                                            
+                                                                const start = i;
+                                                                const end = i + nTasks -1;
+                                                                const subArray = servers.slice(start, end + 1)
+                                                                if(subArray.length < nTasks ) break
+                                                                helper(subArray);
+                                                            
+                                                        }
+
+                                                        const resultEntries = Object.entries(result)
+                                                        resultEntries.sort(([,v1],[,v2]) => v2 - v1);
+                                                        const mostRepeated = resultEntries[0];
+                                                        if(mostRepeated[1] > 1){
+                                                            const nonRepeated  = resultEntries.filter(e => e[1] !== mostRepeated[1]);
+                                                            minimum = nonRepeated.reduce((ac ,e)=> {
+                                                                ac += e[1]
+                                                                return ac
+                                                            }, 0)
+                                                        }else{
+                                                            minimum =  resultEntries.slice(1).reduce((ac ,e)=> {
+                                                                ac += e[1]
+                                                                return ac
+                                                            }, 0)
+                                                        }
+                                                        
+
+                                                                
+                                                        console.log('minimum ===> ' ,minimum)
+                                                        return minimum
+                                                        }
+                                                        fn([ 1, 2, 3, 3 ], 2);
+                                        ```
+
+
+## question 10; SERVER , Request and waiting times 
+-  one server 
+-  n  requests in  queue.
+-  i`th  request maximum waiting time is  wait[i].
+-  i request is not served within wait[i] seconds,
+-  request expires
+-  removed from the queue.
+-  At each second, the first request in the queue is processed. At the next second,the processed request and any expired requests are removed from the queue.
+- Given the maximum waiting time of each request denoted by the array wait,
+- find the number of requests present in the queue at every second until it is empty.
+
+   notes : 
+    • if a request is  served at some time instant t,  it will be  counted for that instant and is removed at the next instant
+    • The first request is processed at  time = 0. A request expires without being processed when time = wait[i] . 
+    • It must be processed while time < wait[i].
+
+     See the example below for wait[3].
+    • The initial queue represents all requests at time = 0 in the order they must be processed.
+    
+
+    Example:
+            
+            The number of requests is n =4, and their maximum wait times are wait = [2, 2,3 ,1]

@@ -573,3 +573,69 @@
 
 
 
+
+
+## Oracle integration cloud OIC
+                              -  integration platform
+                              -  enables to connect  applications, services, and data sources.
+                              -  bridge between different systems,
+                              -  automate processes 
+                              -  data consistency across the organization.
+                              -  Manages APIs for secure and scalable application connections
+                              -  pre-built connectors for popular applications and services
+                     
+                    - Use Case:
+                              -  If a business needs to synchronize data between an ERP system and a CRM
+                              -  OIC would be used to build and manage that integration.
+
+                    - Real-World Scenario:
+                                          Synchronizing Data Between ERP and CRM
+
+
+                ex: 
+                    - a company:  called "TechSupply",  sells computer parts. They use:
+
+                               -  ERP System (e.g., Oracle ERP): To manage their business operations (inventory data):
+                                                                                                        -  inventory,
+                                                                                                        -  orders,
+                                                                                                        -  accounting,
+                                                                                                        -  supplier information.
+
+                               -  CRM System (e.g., Salesforce): To manage customer operations (sales data): 
+                                                                                               -  customer relationships,
+                                                                                               -  sales leads
+                                                                                               -  customer support.
+                                                                                               -  customer orders 
+                   - Problem: 
+                                -  TechSupply  keep sales-data  in sync with inventory data: 
+
+                                                                                        -  a salesperson updates a customer order in the CRM,
+                                                                                        -  the ERP should automatically reflect the changes in inventory and order status.
+
+                                                                                        or 
+
+                                                                                        -  When the ERP updates an order status (e.g., shipped),
+                                                                                        -  this information should automatically update in the CRM 
+                                                                                        -  sales and customer service teams have the latest information.
+
+                   - Solution:
+                        
+
+                             - Integration:
+                                               - OIC sets up a connection between Oracle ERP and Salesforce CRM using pre-built connectors or adapters.
+                                               
+
+                            - Data Flow Automation:
+                                               - new order is created in Salesforce CRM,
+                                               - OIC  sends this data to Oracle ERP,
+                                               - inventory is updated and an order is created in the ERP system.
+                                               - If the order status is updated in Oracle ERP (e.g., the item is shipped),
+                                               - OIC sends this update back to Salesforce CRM so the sales
+                                                 team knows the order is on its way.
+
+                            - Real-Time Updates:
+                                                - OIC ensures that changes in one system are reflected in the other almost instantly,
+                                                - which helps avoid errors and keeps everyone in the company on the same page.
+
+                                        
+                                                                  
