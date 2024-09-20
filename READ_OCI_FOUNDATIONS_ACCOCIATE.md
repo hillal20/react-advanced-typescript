@@ -480,7 +480,6 @@
                                   
                     
 
-
 ## Principal 
         - IAM  entities that are  allowed to interact with oci resources 
         - there are 3  kinds of principles: 
