@@ -1046,5 +1046,168 @@
                                                                                         - network
                                                                                         - oci-services 
                                         
-             
 
+## IOPS 
+       stands for Input/Output Operations Per Second.
+
+
+## SSDs
+        Solid State Drives
+## storage 
+          
+          - persistent storage: 
+          - non-persistent storage: 
+
+          - kind of data are you storing: 
+                                        - database files
+                                        - videos
+                                        - audios
+                                        - photos
+                                        - text
+        - kind of performance:
+        - kind of capacity
+        - amount  input/output per second,
+        - IOPS
+        - amount of throughput
+        - Connectivity: 
+                     -  local storage
+                     -   network storage
+        - the way application access that storage data
+        -  protocol:
+                  -  block
+                  -  file
+                  -  HTTP
+
+
+## Local NVMe storage :
+                     -  data center (AD)
+                     -  compute server
+                     -  a locally-attached storage.
+                     -  locally-attached storage.
+                     -  NVMe SSDs.
+                     -  Super high performance gives you hundreds of thousands of IOPS.
+                     -  could run your  applications using local NVMe. 
+
+## Block Volume (block storage disk)
+             -  persistent/durable storage to compute instances
+             -  stores data in fixed-sized blocks
+             -  the operating system treats it like a small-disk
+             -  similar to a traditional hard drive or SSD.
+             -  Each block has its own address,
+             -  we need  a compute instance
+             -  we need  a storage server,
+             -  is on the same  network
+             -  the storage is  persistent and durable and extend beyond the lifetime of the instance itself.
+             -  the storage, the data is managed as fixed-sized blocks.
+             -  So you create a partition.
+             -  You create a file system.
+             -  Then you mount the file system. 
+
+
+## file storage 
+            -  the same availability domain,
+            -  it's a shared file storage system.
+            -  two compute instances.
+            -  a shared storage system
+            -  the storage is shared.
+            -  you manage the storage as: 
+                                        - files
+                                        - directories
+
+            -  You don't partition the disk.
+            -  mount the file system :
+                                          - A file system is the way data is organized and stored on a storage device.
+                                          - It determines how files are named, accessed, and manage
+                                          -  mount file system means: 
+                                                             - making that organized structure (the file system) accessible to the operating system.
+                                                             - It’s like telling the computer to open up the structure that contains all the files and folders.
+                                                             - Mounting a file system allows you to access files on a hard drive, SSD, or USB stick
+                                                             - because it enables the computer to understand the organization of those files.
+     
+           - after the file system get mounted ,  all the compute instances could use the shared file storage system easily  
+
+
+## Object storage 
+           - data is managed as objects
+           - storage for the web.
+           -  unstructured data
+                              - photos
+                              - videos
+                              -  log files
+                              -  text file,
+                              - any kind of files you store on the web.
+           - regional service.
+           - public service.
+           - multiple storage tiers
+           - have an internet client, who accesses this these objects using simple and familiar HTTP requests
+           - private access from OCI resources like your compute instances
+           - storage scenarios 
+                              - content repository
+                              - structured and semi-structured data
+                              -  big data/ spark / hadoop / data analytics
+                              - archive and backup purposes.
+        
+         how it works :
+                    - objects are key-value-pairs or name-value-pairs 
+                    - they can have metadata 
+                    - store in buckets 
+
+## Object storage tiers
+
+                  - standard tier  (hot tier):
+                                 - keep all the critical data,
+                                 - you want to retrieve instantaneously
+                                 - can not downgrade 
+
+                  - infrequent access storage tier:
+                                - critical data,
+                                - this is a long-term critical data.
+                                - You don't need it right away.
+                                - backups
+                                - data has to be stored for a minimum of 31 days
+                                - retrieval fees when you get the data back
+                                - 60% cheaper than the standard tier
+
+                  - archive tier :
+                                -  data don't need right away.
+                                -  rarely access this data.
+                                -  tape storage.
+                                -  objects need to be restored and then downloaded
+                                -  min retention 90 days 
+                                -  restore time 1 hour 
+                                -  download time 24 h 
+                                -  archive bucket can not be upgrade 
+
+                  - auto tiering 
+                               - looks at your access pattern.
+                               -  And let's say you have unknown access pattern
+                               -  or your data access pattern keeps changing,
+                               -  it can move the data from standard tier to infrequent access tier and vise versa.
+                               -  And it can move back to standard if your objects start getting used again.
+
+
+                             
+
+
+
+## namespace:
+                -  a logical entity. 
+                -  It's a top-level container for all buckets object.
+                -  And it has to have a globally 
+           ex: 
+                an object storage URL :
+
+                        https://objectstorage.<region>.oraclecloud.com/n/<namespace>/b/<bucket_name>/o/<object_name>
+
+                         https://objectstorage.us-sanjose-1.oraclecloud.com/n/hilal-files/b/school-files/o/hilal-log.zip
+            
+## OCI Data migration services
+         - Data transfer Disk : 
+                               - you send us your disks, and we migrate the data.
+
+         - Data transfer appliance:
+                               -  use a much larger appliance to send the data to us.
+        
+        - Storage Gateway (linux appliance):
+                        -  Sits in your data center (AD),
+                        -  and using that, you can migrate data to OCI.
