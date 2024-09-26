@@ -499,3 +499,552 @@
                                       -  are basically collection of users who have the same type of access requirements to resources
                                         ex: 
                                             a storage admin group where you could group all human beings who are storage administrators 
+
+
+
+
+
+
+
+## Tenancy 
+        - the person who create account 
+            ex : 
+                 hilalaissani
+        - 
+## OCI admin 
+         -  admin for  day-to-day operations
+         -  can be a set of users not just one person
+         -  group the admin users in one group : OCI-ADMIN-GROUP
+         - write policies for this group 
+         - let them operate in a specific compartment
+
+## OCI admins best practices 
+         - don't use the tendency administrator account for day-to-day
+         - create dedicated compartments to isolate resources : 
+                                                            ex 
+                                                                  - production
+                                                                  - development
+                                                                  - or a business unit or could be a region based compartment
+        - compartments are available across all regions 
+        - use MFA  to verify a user's identity 
+      
+
+## famous policies for OCI-Admin-group
+     
+
+      -     Allow group MyAdmins-group to manage all-resources in tenancy
+       -      Allow group MyAdmins-group to manage domains in tenancy
+         -      Allow group MyAdmins-group to manage users in tenancy
+           -      Allow group MyAdmins-group to manage groups in tenancy
+             -      Allow group MyAdmins-group to manage dynamic-groups in tenancy
+               -      Allow group MyAdmins-group to manage policies in tenancy
+                 -      Allow group MyAdmins-group to manage compartments in tenancy
+
+
+## Topology in VCN : 
+                   - the arrangement or layout of various elements (like nodes, devices, or connections) within a network. 
+        
+                - please look at the image : 
+                                             /Users/hilalaissani/Desktop/OCI-VCN-Topology.png
+
+
+## Internet Gateway :
+            - allow communication from/and to the VCN and the internet 
+
+## NAT gateway 
+           - allow the communication from the VCN to the internet 
+
+
+## Service gateway  (Dynamic Routing Gateway (DRG))
+          - allow communication from/and to the VCN and an Oracle Services Network (contains: Object Storage ...)
+
+
+## Route Table 
+    -  send traffic out of the VCN to the internet
+    -  send traffic out of the VCN to on premises networks
+    -  send traffic out of the VCN to peered VCNand
+    -  consist of a set of Route rules
+    -  each rule specifies:
+                          - destination CIDR block:
+                                                    - stands for:  Classless Inter-Domain Routing
+                                                    - represents a range of IP addresses
+                                                    - defines the destination network to which the rule applies
+                                                    - Traffic destined for any IP address within this CIDR block will follow the rule specified in the route table
+
+                                ex: 
+                                 - a CIDR block like 10.0.0.0/16
+                                 - could represent all IP addresses between 10.0.0.0 and 10.0.255.255
+                                                
+                          -  route Target: 
+                                         -  specifies the next hop(target) where traffic should be forwarded 
+                                                   when it matches the destination CIDR bloc.
+                                         - Common route targets include:
+                                                                        - Internet Gateway: Used to route traffic to and from the internet.
+                                                                        - NAT Gateway: Allows only outbound traffic from private directly to the  internet.
+                                                                        - Dynamic Routing Gateway (DRG): route traffic between your VCN and  on-premises networks through 
+                                                                                                             a VPN or FastConnect.
+                                                                        - Local Peering Gateway (LPG): Routes traffic between Virtual Cloud Networks (VCNs) that are peered.
+
+## Peering in VCN
+             -  multiple networks how do they talk to each other ?
+             - so there are 2 ways 
+                         
+                         1- local Peering:
+                                          -  VCNs  are within the same oci region 
+                                          -  talk to each other through a mechanism called local peering
+                                          -  each VCN has a Local Peering Gateway (LPG) 
+                                          -  a Virtual Router which lets you manage that communication  
+                                          - the traffic goes thru LPG1 in VCN1 to reach LPG2 in VCN2
+                                          - and vice versa
+                                       
+                          2- remote peering:
+                                        - IF VCNs are in different regions
+                                        -  then  it's a remote peering
+                                        -  using the Dynamic Routing Gateways (DRG)
+                                        - each VCN has its DRG 
+                                        -  enabling communication between networks in different regions
+
+             - VCN peering in OCI is not VPN-based: 
+                                                 - it's an internal connection established either within the same region (local peering) 
+                                                 - or across regions (remote peering) using Oracle's backbone network.
+## Peering with Dynamic Routing Gateway V2 
+      - all the VCNs regardless the region could connect to each other via Dynamic Routing Gateway V2 ( DRG v2)
+      - each DRG v2  can cover up to 300 VCNs
+      
+
+
+
+## Security List of a subnet  in VCN 
+        -  the VCN have subnets 
+        -  Applied at the subnet level.
+        -  Security List : firewall rules associated with a subnet
+        -  applied to all instances inside the subnet 
+        -  specify the type of traffic allowed in or out of the subnet 
+        -  this applies to a given instance
+        -  whether it is talking with another instance in the vcn
+        -  or a host outside the vcn 
+        -  Controls traffic for all resources (instances) within a subnet.
+        -  Security lists consist of ingress (inbound)
+        -  and egress (outbound) rules that apply to the entire subnet.
+        -  All resources within a subnet share the same set of rules,
+        -  resources within a subnet can be treated the same in terms of security
+
+        Ex: 
+             If a security list allows traffic on port 80,
+              all instances within the subnet can receive HTTP traffic on port 80.
+
+## Network security groups (NSG)
+      -  Applied at the instance or resource level
+      -  allowing you to apply security rules to specific resources
+      -  can apply different NSGs to different resources within the same subnet.
+      -  can define specific rules for a particular set of resources without affecting other resources in the subnet
+      -  Best suited for environments where you need fine-grained control over traffic for individual resources or groups of resources in the same subnet.
+      
+         Ex:
+             You can create an NSG for a specific web server instance that only allows traffic on port 443 (HTTPS),
+              while another instance in the same subnet can have different rules (e.g., allowing traffic only on port 22 for SSH).
+
+
+
+## Load Balancer (LB):
+                  -   operates at Layer 7 of the OSI model (application layer)
+                  -   the Oracle cloud region has VCN and VCN has  Internet Gateway (IG) to catch internet traffic in and out 
+                  -   the cloud region has a least one VNC 
+                  -   the VCN has a public subnet which has a security-list and  a load balancer 
+                  -   the VCN has private subnet which has 2 web-servers 
+                  -   distribute traffic from the internet to your resources (public )
+                  -   or Used to distribute traffic within your Virtual Cloud Network (private )
+                  -   the Internet Gateway (IG) pass the traffic to the Load Balancer (LB)
+                  -   referred to as reverse proxies 
+                  -   accessed by multiple clients (internet calls )
+                  -   clients would  hit region internet gateway then hit  the load balancer
+                  -   proxy the traffic to the various back-end servers
+                  -   provides High availability in case a particular backend-server is not available 
+                  -   application can still be up and running 
+                  -   scalability
+                  -   deals with HTTP, HTTPS, WebSocket 
+                  -   Web servers, API gateways
+                  -   Often uses a proxy, may mask source IP
+                  - 
+                     1- Public Load Balancer:
+                           - distribute traffic from the internet to your resources (such as instances) within OCI.
+                           - It provides access to resources in public subnets.
+                           -  deployed in public subnets.
+                           -  Exposed to the internet via a public IP address
+                           ex: 
+                             You would use a public load balancer to route HTTP/HTTPS traffic from the internet to a set of web servers.
+
+                     2-  Private Load Balancer:
+                            -  Used to distribute traffic within your Virtual Cloud Network (VCN), 
+                            -  for resources in private subnets
+                            -  used for internal applications where internet access is not required.
+                            -  deployed in private subnets.
+                            - Only accessible within the VCN (no public access)
+
+                           ex : 
+                               Used for internal-facing applications, 
+                               such as distributing traffic between backend application servers  in private subnets
+
+## Network Load Balancer (NLB)
+                    - operates at Layer 4 of the OSI model ( transport layer )
+                    - routes traffic based on IP addresses and ports (TCP, UDP, ICMP)
+                    - It doesn't inspect or modify the application data
+                    - without inspecting the application payload.
+                    - large traffic spikes and high-volume workloads.
+                    - Preserves source IP address
+                    - Optimized for low-latency and high-throughput traffic :
+                                                                             - real-time gaming,
+                                                                             - high-performance computing, 
+                                                                             - financial services
+                    - distribute traffic across a pool of backend servers (VMs or bare metal instances).
+                    -  Backend servers can be added or removed dynamically, depending on demand.
+
+                      1- Public NLB: Routes traffic from the internet to resources in your VCN.
+                      2- Private NLB: Routes traffic internally within the VCN for private-facing applications.
+
+
+## Flexible shapes 
+     - choose your own cores,
+     - your CPU processors,
+     - and you could also choose your own memory.
+     - choose a combination of CPU cores and memory and there's a ratio there
+     - flexibility in choosing your own configuration.
+
+## traditional approach for servers 
+                           - virtual machines VMs :
+                                               -  VMs are  shared and multi tenant,
+                                               -  the host can be running VMs from multiple customers.
+                                               -  They have strong security isolation,
+                                               -  so you don't have to worry about that.
+                           - bare metal servers: 
+                                                -a full machine,
+                                                -  a full server which is completely dedicated to you
+                           - Dedicated host: 
+                                            -  a full dedicated bare metal machine.
+                                            -  But on top of that
+                                            -  you could run virtual machines.
+                                            - dedicated host where they could run their own VMs
+
+
+
+## region,AD (availability domain ) , VCN , Subnets , VNIC, Instance ...
+         -  A region is comprised of multiple ADs.
+         -  AD is nothing but a data center,
+         -  the compute service has a  Virtual Cloud Network.
+         -  compute instance needs a Virtual Cloud Network.
+         -   network divided into smaller  subnets ( private & public ). 
+         - VNIC :  virtual NIC is placed inside the subnet,
+   
+
+## VNIC :
+           - the private IP for the compute host comes from,
+
+## boot volume,   boot disk,  the block volumes:
+   -  instance determines its operating system
+   -  and other software.
+   -  an image  comes from this network storage disk called a boot disk.
+   -  So it doesn't stay on the compute host, 
+   -  it's actually living on the network somewhere.
+
+## remote storage 
+             - boot 
+             - data 
+
+## VM Live  Migration 
+      -  if  computers fail
+      -  the compute host you are running has to be always up and running
+      -  migrate your VM to another host in our data center (AD),
+      -  it will be transparent to you.
+      -   migrate your virtual machines so you can live-migrate between hosts without rebooting.
+      -   applications running even during maintenance events
+
+
+
+## steps to create Instance 
+                1 - go to network than create VCN  and subnet 
+                                                - provide name 
+                                                - choose the cidr block (10.0.0.0/16)
+                                                - create a subnet inside this VCN :
+                                                                                - provide name 
+                                                                                - provide compartment 
+                                                                                - provide regional or domain specific 
+                                                                                - provide cidr block (10.0.0.0/24)
+                                                                                - create public or private subnet 
+                                                                                - choose the route table 
+                                                                                
+
+
+
+                2 -  create internet gateway (My_internet_gateway)
+
+                3 -  go to the route table and click on the correct table 
+                                                                        - create route rule ( ex: internet gateway)
+                                                                        - create cidr block (0.0.0.0/0 means all the internet traffic )
+                                                                        
+                                                                        
+                4- in the security list in the VCN , click on the correct list 
+                                                                         - add ingress rule 
+                                                                         - CIDR ( 0.0.0.0/0)
+                                                                         - choose IP Protocol to be : TCP
+                                                                         - choose the port to be : 80
+                5- create an instance 
+                                   - choose the image (OS) and shape( hardware)
+                                   - pick the right network (VCN)
+                                   - pick the right subnet (public one )
+                                   - add the public ssh key and save it 
+                                   -
+            
+            
+               ex: 
+                   /Users/hilalaissani/Desktop/instance-sample.png
+
+
+
+## Scaling 
+          - vertical scaling:
+                             -  scaling up or scaling down instance shapes
+                             -  scale the cores (CPOs),
+                             -  scale memory.
+                             -  a downtime required
+                             -  because, likely, we take your machine, and we instantiate a new-- when you institute a new shape
+                             -  It actually goes to another host. 
+                             -  stop your instance before you do any kind of vertical scaling.
+
+
+
+                  
+          - horizontal scaling (Autoscaling):
+                             - add more VMs of the same shape,
+                             - or you take a bit more of the same shape. 
+                             - enables large-scale deployment of VMs.
+                             -  There is scale-out (add) or scale in (remove)
+                             - going from one VM to 4 VMs.
+                             - going from 4 VMs back to one VM.
+                             - There is no extra cost for using Autoscaling.
+                             - how does it work and in practice: 
+
+                                           - first :
+                                                - So you create a template (config or stamp) of the running instance 
+                                                - It's basically things like your: 
+                                                                                - operating system image, 
+                                                                                - metadata,
+                                                                                - the shape,
+                                                                                - the size,
+                                                                                - other characteristics, like storage, networking, et cetera.
+
+                                           - second:
+                                                 -  take that stamp,
+                                                 -  create instance pool.
+                                                 -  pool is  a collection of those instances in advance
+                                                 -  manage all of these instances as one unit.
+                                                 -  stop all of them at the same time.
+                                                 -  start them, you could terminate them, and, to get high availability, 
+                                                 -  put them in different availability domains on different data centers. 
+
+
+                                          - third: 
+                                               -  take your instance pool,
+                                               -  write these Autoscaling rules on that.
+                                               -  You start with a desired or initial size.
+                                               -  There is a minimum size and  a maximum size.
+                                               -  if CPU or memory goes beyond a particular percentage threshold, add some instances.
+                                               -  if CPU or memory goes below some threshold, remove some instances. 
+                                               -  Autoscaling is constantly monitoring your traffic.
+                                               -  Autoscaling constantly monitoring your CPU usage.
+                                               -  Autoscaling  is looking at whether to add instances or remove instances.
+
+
+
+## difference between VMs and Containers 
+
+                                                  VMs                             |                             Containers 
+                
+                - hardware                                                                           - hardware  
+                - hypervisor                                                                         - OS
+                - every VM has  OS                                                                   - container runtime (docker)
+                - every VM has  library/dependencies                                                 - every container has library/dependencies 
+                - every VM has application                                                           - every container has application 
+                - resource heavy compare to on-premises                                              - one OS for multiple containers 
+                - multiple VMs with  multiple OS                                                     - boot fast 
+                - higher disk space                                                                  - light wight 
+                - longer boot time                                                                   - portable to other clouds 
+              
+  
+
+## container`s orchestration:
+               -  deploy them,
+               -  manage them, 
+               - connect them, 
+               - scale them up and down
+               - All this process of automatically deploying and managing containers is known as container orchestration.
+        
+## Kubernetes 
+               - is an container`s orchestration tool 
+               - an open source system for automating deployment, scaling, and management of containerized application.
+               - no down time
+               - self heal
+               - use docker to build containers and kubernetes to orchestrate them 
+               
+
+
+## OKE (Oracle Kubernetes Container-Engine)
+            - it  is a Kubernetes service.
+            - it's a fully managed, scalable, and highly available Kubernetes service.
+            -  It's based on the open source Kubernetes system.
+            - a lot of features for developers: 
+                                              -  one click cluster creation,
+                                              -  CLI API support,
+                                              -  support for running these on ARM-based and GPU-based instances.
+
+## Node in kubernetes
+           -  a machine on which Kubernetes is installed.
+           -  referred to as worker node.
+           -  worker node is where containers (grouped in pods) are launched by Kubernetes.
+
+## pod :
+       -  a group of one or more containers
+       -  with shared storage
+       -  shared network resources
+       -  shared specification file for how to run the containers.
+       -  the smallest unit of compute within a managed Kubernetes environment.
+ 
+## NodePool 
+         - a group of worker nodes 
+         - either virtual nodes
+         - or manged nodes 
+         
+
+## virtual nodes 
+    -  a serverless option.
+    - only in the enhanced cluster 
+    -  Oracle do :
+                  - Kubernetes software is upgraded, 
+                  - security patches 
+                  - application availability ...
+
+## manged nodes 
+        -  you are responsible for upgrading Kubernetes
+        -  you are responsible for managing the nodes.
+        -  you can configure them to meet your requirements.
+        -  in basic clusters, as well as enhanced clusters.
+
+## cluster 
+        - a group of NodePool 
+
+
+##  control plane for  nodes.
+                -  manage the cluster
+                -  schedule the containers
+                -  manage high availability
+                -  manages the worker nodes and the pods in the cluster.
+                -  control plane nodes is highly available and it's managed by Oracle. 
+                -  no charge for running the control plane nodes.
+                - contains :
+                           -  kube-controller-manager,
+                            - cloud-controller-manager
+                           -  kube-APIserver
+                           -  etcd (it's a key-value store used for Kubernetes to back all the cluster data)
+                          
+
+##  enhanced clusters 
+                        - support all available features
+                        - come with a financially-backed  SLA (service level agreement)
+
+##  basic clusters
+                   -  support core functionality,
+                   -  but none of the enhanced features.
+                   -  financial with SLO (Service Level Objective)
+                   -  no financially-backed SLA 
+## SLA:  
+       - contract between provider and customer 
+       - outlines the services  provided,
+       - and  performance standards (including SLOs),
+       - and the consequences if those standards are not met (penalties, compensations).
+    
+## SLO :
+      -  desired level of services:
+                                        - uptime, 
+                                        - response time
+                                        -  or throughput.
+
+
+## OCI container instances 
+
+
+     problem: 
+                - test containerized application,
+                - no  deploying it on OKE as the scale is not large.
+                - the application has isolated web applications or RESTful APIs.
+                -  simple, quick, and secure way to run containers without managing any servers.
+
+                -  run a containerized application without using Kubernetes,
+                                                        - provision a virtual machine,
+                                                        - install a container runtime (docker)
+                                                        - run applications on it,
+
+                -  increases the operational complexity,
+                -   manage the VMs and the servers, 
+                -  patch the operating system,
+                -  update the container runtime regularly
+
+    solution:
+                -  OCI Container-Instances.
+                -  the quickest way to launch containers
+                -  no  need to virtual machines 
+                -  no OKE.
+                -  run containerized applications without having to manage any infrastructures.
+                -  supply the container-image for  applications 
+                -  OCI takes care of the underlying container runtime and compute resources.
+
+
+## serverless (Oracle functions)
+             -  Bare Metal machine :  access to the full machine, 
+             -  Virtual Machines : 
+                                    - take that big Bare Metal server and you divide it into smaller segments
+                                    -  all be run independently of each other
+
+             - Containers: 
+                       -   where you have a container runtime(docker)
+                       -  the containers share the OS kernel,
+                       -  and they have a little bit weaker security isolation,
+                       -  but they have a good resource isolation in terms of CPU and memory.
+                       -  they could drive your overall resource utilization,
+                       -  they are portable,
+                       -   they really help in DevOps adoption.
+                       -  You write once, you could deploy anywhere, 
+
+              - Functions:
+                          -  write your code in a particular runtime,
+                          -  you don't worry about servers,
+                          -  you don't worry about any of the infrastructure, 
+                          -  you just provide the code and the cloud provider is responsible for executing that code.
+                          -  consumption-based-pricing model where you are only billed for the time your function is running.
+                          -  no pay-as-you-go-pricing 
+                         
+## function-as-a-service
+                  -  write code and the code is executed.
+                  -  Event Driven Architecture,
+                  -  an event happens when function is invoked.
+                  -  functions run inside a container.
+                  -  billed only for the duration the function runs
+                  -  highly parallel execution.
+                  -  Oracle Functions is powered by the Fn-Project-Open-Source-engine.
+                  -  autonomous,
+                  -  scales
+
+        
+        how it works in reality  :
+                      -  your uploaded code and configuration is packaged as a container image and stored in the OCI Registry.
+                      -  Then you set up trigger actions.
+                      -  You can invoke using CLI or API, or OCI events can trigger it.
+                      -  then  Oracle Functions  executes the code in response to the trigger or invocation.
+                      -  then can invoke other function-integrations/oci-services or even external systems :        
+                                                                                        - monitoring 
+                                                                                        - identity
+                                                                                        - registry
+                                                                                        - logging
+                                                                                        - network
+                                                                                        - oci-services 
+                                        
+             
+
